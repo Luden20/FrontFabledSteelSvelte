@@ -1,5 +1,5 @@
 <script>
-  import BotonEstado from "../../../componentesGenericos/BotonEstado.svelte";
+  import BotonEstado from "../../../../componentesGenericos/BotonEstado.svelte";
     export let categoria;
     let endpoint='/categoria'
     import { actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore";

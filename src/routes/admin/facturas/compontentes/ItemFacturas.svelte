@@ -1,5 +1,5 @@
 <script>
-    import BotonEstado from "../../../componentesGenericos/BotonEstado.svelte";
+    import BotonEstado from "../../../../componentesGenericos/BotonEstado.svelte";
     import { actualizarFacturasAdmin } from "$lib/store/facturaAdminStore";
     import BotonDetalleFactura from "./BotonDetalleFactura.svelte";
     export let factura;

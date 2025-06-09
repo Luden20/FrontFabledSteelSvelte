@@ -3,7 +3,7 @@
   import { API } from "$lib/service/apis.service";
   import { categorias,actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore"
   import { createEventDispatcher } from "svelte";
-  import Resultado from "../../../componentesGenericos/Resultado.svelte";
+  import Resultado from "../../../../componentesGenericos/Resultado.svelte";
   let abierto = false;
   let resultado = null;
 

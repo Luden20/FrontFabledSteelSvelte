@@ -43,7 +43,7 @@
     
           {#if rol === "admin"&& usuario!=null}
           <li class="nav-item">
-            <a class="nav-link" href="/panel">Panel</a>
+            <a class="nav-link" href="/admin">Panel</a>
           </li>
           <li class="nav-item">
             <span class="nav-link text-danger">ADMIN</span>
@@ -86,7 +86,7 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
                   <li class="nav-item">
-            <a class="nav-link" href="/panel">Panel</a>
+            <a class="nav-link" href="/admin">Panel</a>
           </li>
       </ul>
     </div>

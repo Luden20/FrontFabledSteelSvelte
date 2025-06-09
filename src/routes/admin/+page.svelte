@@ -2,8 +2,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </svelte:head>
 <script>
-  import FacturasAdmin from "../facturas/facturasAdmin.svelte";
-  import CategoriasAdmin from "../categorias/categoriasAdmin.svelte";
+  import FacturasAdmin from "./facturas/facturasAdmin.svelte";
+  import CategoriasAdmin from "./categorias/categoriasAdmin.svelte";
 
   let tabs = [
     { nombre: "Facturas", componente: FacturasAdmin },

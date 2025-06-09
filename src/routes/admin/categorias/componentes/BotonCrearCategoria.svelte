@@ -1,5 +1,5 @@
 <script>
-    import ModalGenerico from "../../../componentesGenericos/ModalGenerico.svelte";
+    import ModalGenerico from "../../../../componentesGenericos/ModalGenerico.svelte";
     import CrearCategoria from "./CrearCategoria.svelte";
     let mostrarModal = false;
     function abrir() {

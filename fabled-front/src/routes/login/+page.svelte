@@ -1,5 +1,6 @@
 <script>
   import { authService } from "../../service/auth.service";
+  import { initAuth } from "../../lib/authStore.js";
 
   let user = "";
   let password = "";
@@ -8,6 +9,7 @@
     e.preventDefault();
     try {
       const res = await authService.login(user, password);
+      initAuth();
       window.alert(`Respuesta: ${JSON.stringify(res)}`);
     } catch (err) {
       window.alert("Ocurrió un error durante el login.");

@@ -1,5 +1,6 @@
 <script>
   import { authService } from "../../service/auth.service";
+  import { initAuth } from "../../lib/authStore.js";
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   let user = "";
@@ -9,6 +10,7 @@
     e.preventDefault();
     try {
       const res = await authService.login(user, password);
+      initAuth();
       window.alert(`Respuesta: ${JSON.stringify(res)}`);
       dispatch("logeado");
     } catch (err) {

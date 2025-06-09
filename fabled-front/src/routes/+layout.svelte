@@ -12,22 +12,26 @@
   import '../app.css';
   import { authService } from "../service/auth.service";
   import { onMount } from 'svelte';
+  import { authStore, initAuth } from '../lib/authStore.js';
   import Login from './layoutCompontes/Login.svelte';
 
-  let rol= null;
-  let usuario=null;
+  let rol = null;
+  let usuario = null;
 
-  // Función que actualiza desde sessionStorage
-  function actualizarNavbar() {
-    alert("cambio")
-    rol = authService.obtenerRol();
-    usuario = authService.obtenerUsuario();
-  }
-
-  // Solo se ejecuta en cliente
-  onMount(() => {
-    actualizarNavbar();
+  // Actualiza las variables locales cuando cambie el store
+  authStore.subscribe(($auth) => {
+    rol = $auth.rol;
+    usuario = $auth.usuario;
   });
+
+  // Refresca la información desde sessionStorage al montar
+  onMount(() => {
+    initAuth();
+  });
+
+  function actualizarNavbar() {
+    initAuth();
+  }
 
 
 </script>
@@ -59,7 +63,7 @@
         </li>
 
           <li class="nav-item">
-            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={authService.cerrarSesion()}>Cerrar Sesión</button>
+            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={() => { authService.cerrarSesion(); actualizarNavbar(); }}>Cerrar Sesión</button>
           </li>
 
         {:else}

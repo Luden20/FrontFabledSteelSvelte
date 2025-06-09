@@ -1,5 +1,5 @@
 import { URLS } from './apis.service.js';
-import { writable } from 'svelte/store';
+import { authStore } from '../lib/authStore.js';
 
 export const authService = {
   
@@ -20,6 +20,7 @@ export const authService = {
     {
         sessionStorage.setItem("usuario",JSON.stringify(cuenta));
         sessionStorage.setItem("rol","cliente");
+        authStore.set({ usuario: cuenta, rol: 'cliente' });
         return "Logeo correcto"
     }
     return "Error al logearse"
@@ -42,6 +43,7 @@ obtenerRol() {
   cerrarSesion() {
     if (typeof window !== 'undefined') {
       sessionStorage.clear();
+      authStore.set({ usuario: null, rol: null });
     }
   }
 };

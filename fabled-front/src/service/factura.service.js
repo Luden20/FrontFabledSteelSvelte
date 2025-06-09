@@ -25,15 +25,11 @@ export const FacturaService={
       }
     );
 
-    // parseamos siempre la respuesta JSON
     const data = await res.json();
 
     if (!res.ok) {
-      // devolvemos objeto con error y mensaje del backend
       return { success: false, mensaje: data.mensaje || 'Error desconocido' };
     }
-
-    // en caso OK devolvemos la misma estructura
     return { success: true, mensaje: data.mensaje };
   }
 }

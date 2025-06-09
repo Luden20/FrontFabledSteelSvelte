@@ -1,35 +1,81 @@
 <script>
-    //esta funcion encapsula todo para formalarios simples
-    import { manejarEnvio } from "../../service/forms.service";
-    let resultado = null;
+    import CrearCategoria from "./componentes/CrearCategoria.svelte";
+    import ModalGenerico from "../../componentesGenericos/ModalGenerico.svelte";
+    import ItemCategoria from "./componentes/ItemCategoria.svelte";
+    import { API } from "../../service/apis.service";
+    import { onMount } from "svelte";
+    import { Table } from 'flowbite-svelte';
+    let mostrarModal = false;
+    let categorias=[];
+    function abrir() {
+        mostrarModal = true;
+    }
 
-    function callback(respuesta, error) {
-        if (error) 
-        {
-            resultado = { mensaje: "Error al enviar los datos." };
-        } 
-        else 
-        {
-            resultado = respuesta;
-        }
-  }
+    function cerrar() {
+        mostrarModal = false;
+    }
+    function abrirModal() {
+        showModal = true;
+    }
+    onMount(async()=>{
+        categorias=await API.GET(`/categoria/all`,true)
+        console.log(categorias);
+    })
 </script>
-<form on:submit={manejarEnvio("https://backendrestfableedsteel.runasp.net/admin/categoria", callback)}>
-  <label>
-    Nombre
-    <input name="CAT_NOMBRE" type="text" />
-  </label>
-  <label>
-    Descripción
-    <input name="CAT_DECRIPCION" type="text" />
-  </label>
-  <label>
-    Estado
-    <input name="ESTADO" type="text" />
-  </label>
-  <button type="submit">ENVIAR</button>
-</form>
+<button on:click={abrir}>Abrir</button>
+<ModalGenerico
+  mostrar={mostrarModal}
+  on:close={cerrar}
+  titulo="Crear Categoría"
+  componente={CrearCategoria}
+  props={{ extraProp: "algo" }}
+/>
+<Table id="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#if categorias.length > 0}
+      {#each categorias as categoria}
+        <ItemCategoria categoria={categoria} />
+      {/each}
+    {:else}
+      <tr>
+        <td colspan="3">CARGANDO...</td>
+      </tr>
+    {/if}
+  </tbody>
+</Table>
+<style>  
+    .table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
 
-{#if resultado}
-  <h5>{resultado.mensaje}</h5>
-{/if}
+  thead {
+    background-color: #1f2937; /* gris oscuro */
+    color: white;
+  }
+  button {
+    background-color: #1f2937; /* gris oscuro */
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #374151; /* gris más claro al pasar mouse */
+  }
+
+  </style>

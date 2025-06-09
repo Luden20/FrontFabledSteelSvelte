@@ -1,4 +1,5 @@
 import { URLS } from './apis.service.js';
+import { writable } from 'svelte/store';
 
 export const authService = {
   
@@ -23,16 +24,24 @@ export const authService = {
     }
     return "Error al logearse"
   },
-  obtenerUsuario(){
-    const data=sessionStorage.getItem("usuario");
-    return data ? JSON.parse(data):null;
-  },
-  obtenerRol()
-  {
-    return sessionStorage.getItem("rol")||null;
-  },
-  cerrarSesion()
-  {
-      sessionStorage.clear(); 
+obtenerUsuario() {
+  if (typeof window !== 'undefined') {
+    const data = sessionStorage.getItem("usuario");
+    return data ? JSON.parse(data) : null;
+  }
+  return null;
+},
+obtenerRol() {
+  if (typeof window !== 'undefined') {
+    return sessionStorage.getItem("rol") || null;
+  }
+  return null;
+}
+,
+
+  cerrarSesion() {
+    if (typeof window !== 'undefined') {
+      sessionStorage.clear();
+    }
   }
 };

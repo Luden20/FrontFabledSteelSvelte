@@ -4,19 +4,19 @@
     rel="stylesheet"
   />
 </svelte:head>
-
 <script>
-  import ModalDetalle from './ModalDetalle.svelte';
-
+  import Detalle from './Detalle.svelte';
+  import ModalGenerico from '../../../componentesGenericos/ModalGenerico.svelte';
   export let item;
   let cantidad = 1;
-  let showModal = false;
-
-  function abrirModal() {
-    showModal = true;
+  let mostrarModal = false;
+  function abrir() {
+    mostrarModal = true;
+  }
+  function cerrar() {
+    mostrarModal = false;
   }
 </script>
-
 <div class="card h-100 shadow-lg border-0">
   <img
     class="card-img-top"
@@ -24,12 +24,10 @@
     alt="Imagen"
     style="height: 200px; object-fit: cover;"
   />
-
   <div class="card-body d-flex flex-column">
     <h5 class="card-title">{item.PRD_NOMBRE}</h5>
     <p class="card-text">{item.PRD_DESCRIPCION}</p>
   </div>
-
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <strong>Autor:</strong> {item.PRD_AUTOR}
@@ -45,7 +43,6 @@
       </select>
     </li>
   </ul>
-
   <div class="card-body d-flex justify-content-between mt-auto">
     <button
       class="btn btn-primary"
@@ -64,20 +61,17 @@
     >
       Comprar
     </button>
-
-    <!-- Aqui usamos Bootstrap en vez de Flowbite -->
-    <button class="btn btn-outline-primary" on:click={abrirModal}>
-      Ver detalles
-    </button>
+<button on:click={abrir}>Abrir</button>
   </div>
 </div>
 
-<!-- Montamos el modal una sola vez -->
-{#if showModal}
-  <ModalDetalle id={item.PRD_ID_PK} on:close={() => (showModal = false)} />
-{/if}
-
-
+<ModalGenerico
+  mostrar={mostrarModal}
+  on:close={cerrar}
+  titulo="Detalle del Producto"
+  componente={Detalle}
+  props={{ id: item.PRD_ID_PK }}
+/>
 <style>
   .card {
     background-color: rgba(255, 255, 255, 0.92);

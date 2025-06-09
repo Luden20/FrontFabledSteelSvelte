@@ -1,15 +1,14 @@
 <script>
   import TiendaItem from "./TiendaItem.svelte";
   import { onMount } from 'svelte';
-  import { productosService } from "../../../service/productos.service";
-
+  import { API } from "../../../service/apis.service";
   export let param = "";
   export let buscado = "";
 
   let productos = null;
 
   async function cargarProductos() {
-    productos = await productosService.ObtenerProductos(param, buscado);
+    productos = await API.GET(`/productos/buscar?param=${param}&buscado=${buscado}`,false);
   }
 
   onMount(cargarProductos);

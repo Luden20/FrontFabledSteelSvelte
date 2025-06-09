@@ -12,16 +12,23 @@
   import '../app.css';
   import { authService } from "../service/auth.service";
   import { onMount } from 'svelte';
+  import Login from './layoutCompontes/Login.svelte';
 
   let rol= null;
   let usuario=null;
-onMount(() => {
-  rol = authService.obtenerRol();
-  usuario = authService.obtenerUsuario();
 
-  rol = `${rol}`; // forzar actualización de tipo string
+  // Función que actualiza desde sessionStorage
+  function actualizarNavbar() {
+    alert("cambio")
+    rol = authService.obtenerRol();
+    usuario = authService.obtenerUsuario();
+  }
 
-});
+  // Solo se ejecuta en cliente
+  onMount(() => {
+    actualizarNavbar();
+  });
+
 
 </script>
 
@@ -41,7 +48,7 @@ onMount(() => {
             <span class="nav-link text-danger">ADMIN</span>
           </li>
           <li class="nav-item">
-            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={authService.cerrarSesion()}>Cerrar Sesión</button>
+            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={()=>{authService.cerrarSesion();actualizarNavbar()}}>Cerrar Sesión</button>
           </li>
         {:else if rol === "cliente"&& usuario!==null}
           <li class="nav-item">
@@ -56,11 +63,11 @@ onMount(() => {
           </li>
 
         {:else}
-               <li class="nav-item">
+        <li class="nav-item">
           <a href="/tienda" class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;">Tienda</a>
         </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+<Login onLogin={actualizarNavbar} />
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/registrarse">Registrarse</a>

@@ -48,9 +48,7 @@
           Pagar
         </button>
         {:else}
-<Login onLogin={()=>{}} />
-
-
+            <Login />
         {/if}
         <input type="hidden" name="carritoJson" id="carritoJson" />
       </div>

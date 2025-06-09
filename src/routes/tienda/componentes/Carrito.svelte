@@ -3,9 +3,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </svelte:head>
 <script>
-    import { authService } from "../../../service/auth.service";
+    import { authService } from "$lib/service/auth.service";
     import { onMount } from 'svelte';
-    import { authStore, initAuth } from "../../../store/authStore";
+    import { authStore, initAuth } from "$lib/store/authStore";
     import Login from "../../layoutCompontes/Login.svelte";
     let rol= null;
     let usuario=null;

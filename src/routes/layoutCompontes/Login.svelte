@@ -1,7 +1,7 @@
 <script>
     import ModalGenerico from "../../componentesGenericos/ModalGenerico.svelte";
     import LoginForm from "./LoginForm.svelte";
-    import { showLoginModal, openLoginModal, closeLoginModal } from "../../store/loginModalStore";
+    import { showLoginModal, openLoginModal, closeLoginModal } from "$lib/store/loginModalStore";
 
     function handleLogin() {
         closeLoginModal();

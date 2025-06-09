@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { API } from "../../../service/apis.service";
+  import { API } from "$lib/service/apis.service";
   export let id;
   export let onCerrar;
 

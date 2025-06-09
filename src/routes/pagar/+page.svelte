@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { authService } from "../../service/auth.service";
+    import { authService } from "$lib/service/auth.service";
     import CuentasItem from './componentes/CuentasItem.svelte';
     import Pagar from './componentes/Pagar.svelte';
     let pTotal=0;

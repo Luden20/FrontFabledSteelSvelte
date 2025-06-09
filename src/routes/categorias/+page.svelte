@@ -2,10 +2,10 @@
     import CrearCategoria from "./componentes/CrearCategoria.svelte";
     import ModalGenerico from "../../componentesGenericos/ModalGenerico.svelte";
     import ItemCategoria from "./componentes/ItemCategoria.svelte";
-    import { API } from "../../lib/service/apis.service";
+    import { API } from "$lib/service/apis.service";
     import { onMount } from "svelte";
     import { Table } from 'flowbite-svelte';
-    import { categorias,actualizarCategoriasAdmin } from "../../lib/store/categoriaAdminStore";
+    import { categorias,actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore";
 
     let mostrarModal = false;
     function abrir() {

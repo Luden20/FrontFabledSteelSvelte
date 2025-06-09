@@ -1,5 +1,5 @@
 <script>
-    import { API } from "../service/apis.service";
+    import { API } from "$lib/service/apis.service";
     export let estado;
     export let id;
     export let endpoint;

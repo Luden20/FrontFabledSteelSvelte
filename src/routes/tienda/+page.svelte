@@ -5,7 +5,7 @@
 </svelte:head>
 <script>
       import { onMount } from 'svelte';
-  import { authStore, initAuth } from "../../store/authStore";
+  import { authStore, initAuth } from "$lib/store/authStore";
 
 	import TiendaLista from "./componentes/TiendaLista.svelte";
 	import Carrito from './componentes/Carrito.svelte';

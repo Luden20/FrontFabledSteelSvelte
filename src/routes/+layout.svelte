@@ -10,9 +10,9 @@
 
 <script>
   import '../app.css';
-  import { authService } from "../service/auth.service";
+  import { authService } from "$lib/service/auth.service";
   import { onMount } from 'svelte';
-  import { authStore, initAuth } from "../store/authStore";
+  import { authStore, initAuth } from "$lib/store/authStore";
   import Login from "./layoutCompontes/Login.svelte";
 
   let rol = null;

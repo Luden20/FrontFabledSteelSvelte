@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { FacturaService } from '../../../service/factura.service';
+  import { FacturaService } from '$lib/service/factura.service';
   import InfoBanco from './InfoBanco.svelte';
   import CuentasItem from './CuentasItem.svelte';
 

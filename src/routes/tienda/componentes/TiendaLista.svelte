@@ -1,7 +1,7 @@
 <script>
   import TiendaItem from "./TiendaItem.svelte";
   import { onMount } from 'svelte';
-  import { API } from "../../../service/apis.service";
+  import { API } from "$lib/service/apis.service";
   export let param = "";
   export let buscado = "";
 

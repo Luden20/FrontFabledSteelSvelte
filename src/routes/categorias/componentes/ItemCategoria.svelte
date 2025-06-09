@@ -2,7 +2,7 @@
   import BotonEstado from "../../../componentesGenericos/BotonEstado.svelte";
     export let categoria;
     let endpoint='/categoria'
-    import { actualizarCategoriasAdmin } from "../../../store/categoriaAdminStore";
+    import { actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore";
     import EditarCategoria from "./EditarCategoria.svelte";
     import BotonEditarCategoria from "./BotonEditarCategoria.svelte";
 </script>

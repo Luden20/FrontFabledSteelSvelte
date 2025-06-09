@@ -7,7 +7,12 @@
         closeLoginModal();
     }
 </script>
-<button on:click={openLoginModal}>Logearse</button>
+<button
+  class="px-3 py-1 rounded bg-red-700 text-white hover:bg-red-800 focus:outline-none"
+  on:click={openLoginModal}
+>
+  Logearse
+</button>
 <ModalGenerico
   mostrar={$showLoginModal}
   on:close={closeLoginModal}

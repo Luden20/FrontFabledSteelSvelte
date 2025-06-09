@@ -6,8 +6,9 @@
 	import { authStore, initAuth } from '../store/authStore';
 	import Login from './layoutCompontes/Login.svelte';
 
-	let rol = null;
-	let usuario = null;
+        let rol = null;
+        let usuario = null;
+        let menuOpen = false;
 
 	// Actualiza las variables locales cuando cambie el store
 	authStore.subscribe(($auth) => {
@@ -41,98 +42,67 @@
 </svelte:head>
 
 <!-- NAVBAR -->
-<nav class="navbar sticky-top z-3 bg-white shadow-sm">
-	<div class="container">
-		<a href="/home" class="navbar-brand">
-			<img
-				src="https://i.imgur.com/eOwWwYW.png"
-				alt="Logo FabledSteel"
-				class="d-block d-sm-none"
-				style="height: 30px;"
-			/>
-			<img
-				src="https://i.imgur.com/eOwWwYW.png"
-				alt="Logo FabledSteel"
-				class="d-none d-sm-block"
-				style="height: 50px;"
-			/>
-		</a>
 
-		{#if rol === 'admin' && usuario != null}
-			<li class="nav-item">
-				<a class="nav-link" href="/panel">Panel</a>
-			</li>
-			<li class="nav-item">
-				<span class="nav-link text-danger">ADMIN</span>
-			</li>
-			<li class="nav-item">
-				<button
-					class="btn btn-sm ms-2 mt-1"
-					style="background-color:#B22222; color:#FFFFFF;"
-					on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button
-				>
-			</li>
-		{:else if rol === 'cliente' && usuario !== null}
-			<li class="nav-item">
-				<span class="nav-link text-success"
-					>Bienvenido {usuario?.CUE_NOMBRE} {usuario?.CUE_APELLIDO}</span
-				>
-			</li>
-			<li class="nav-item">
-				<a
-					href="/tienda"
-					class="btn btn-sm ms-2 mt-1"
-					style="background-color:#B22222; color:#FFFFFF;">Tienda</a
-				>
-			</li>
-
-			<li class="nav-item">
-				<button
-					class="btn btn-sm ms-2 mt-1"
-					style="background-color:#B22222; color:#FFFFFF;"
-					on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button
-				>
-			</li>
-		{:else}
-			<li class="nav-item">
-				<a
-					href="/tienda"
-					class="btn btn-sm ms-2 mt-1"
-					style="background-color:#B22222; color:#FFFFFF;">Tienda</a
-				>
-			</li>
-			<li class="nav-item">
-				<Login />
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="/registrarse">Registrarse</a>
-			</li>
-			<li class="nav-item">
-				<span class="nav-link text-muted">DESLOGEADO</span>
-			</li>
-		{/if}
-		<button
-			class="navbar-toggler"
-			type="button"
-			data-bs-toggle="collapse"
-			data-bs-target=".navbar-collapse"
-			aria-controls="navbarSupportedContent"
-			aria-expanded="false"
-			aria-label="Toggle navigation"
-		>
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="navbar-collapse collapse">
-			<ul class="navbar-nav me-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="/panel">Panel</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+<nav class="sticky top-0 z-50 bg-red-700 text-white">
+        <div class="container mx-auto flex items-center justify-between px-4 py-2">
+                <a href="/home" class="flex items-center">
+                        <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="h-8 sm:h-12" />
+                </a>
+                <button class="md:hidden focus:outline-none" on:click={() => (menuOpen = !menuOpen)}>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                </button>
+                <ul class="hidden md:flex items-center space-x-4">
+                        {#if rol === 'admin' && usuario != null}
+                                <li><a href="/panel" class="hover:underline">Panel</a></li>
+                                <li><span class="text-red-300">ADMIN</span></li>
+                                <li>
+                                        <button class="bg-white text-red-700 px-3 py-1 rounded hover:bg-red-100" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+                                </li>
+                        {:else if rol === 'cliente' && usuario !== null}
+                                <li><span class="text-green-200">Bienvenido {usuario?.CUE_NOMBRE} {usuario?.CUE_APELLIDO}</span></li>
+                                <li>
+                                        <a href="/tienda" class="bg-white text-red-700 px-3 py-1 rounded hover:bg-red-100">Tienda</a>
+                                </li>
+                                <li>
+                                        <button class="bg-white text-red-700 px-3 py-1 rounded hover:bg-red-100" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+                                </li>
+                        {:else}
+                                <li>
+                                        <a href="/tienda" class="bg-white text-red-700 px-3 py-1 rounded hover:bg-red-100">Tienda</a>
+                                </li>
+                                <li><Login /></li>
+                                <li><a href="/registrarse" class="hover:underline">Registrarse</a></li>
+                                <li><span class="text-gray-300">DESLOGEADO</span></li>
+                        {/if}
+                </ul>
+        </div>
+        <ul class={`md:hidden ${menuOpen ? 'block' : 'hidden'} px-4 pb-2 space-y-2 bg-red-700`}>
+                {#if rol === 'admin' && usuario != null}
+                        <li><a href="/panel" class="block py-1">Panel</a></li>
+                        <li><span class="block py-1 text-red-300">ADMIN</span></li>
+                        <li>
+                                <button class="w-full bg-white text-red-700 px-3 py-1 rounded hover:bg-red-100" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+                        </li>
+                {:else if rol === 'cliente' && usuario !== null}
+                        <li><span class="block py-1 text-green-200">Bienvenido {usuario?.CUE_NOMBRE} {usuario?.CUE_APELLIDO}</span></li>
+                        <li>
+                                <a href="/tienda" class="block bg-white text-red-700 px-3 py-1 rounded hover:bg-red-100">Tienda</a>
+                        </li>
+                        <li>
+                                <button class="w-full bg-white text-red-700 px-3 py-1 rounded hover:bg-red-100" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+                        </li>
+                {:else}
+                        <li>
+                                <a href="/tienda" class="block bg-white text-red-700 px-3 py-1 rounded hover:bg-red-100">Tienda</a>
+                        </li>
+                        <li><Login /></li>
+                        <li><a href="/registrarse" class="block py-1 hover:underline">Registrarse</a></li>
+                        <li><span class="block py-1 text-gray-300">DESLOGEADO</span></li>
+                {/if}
+        </ul>
 </nav>
-
 <!-- PÁGINAS -->
 <main class="container mt-4 mb-5">
 	<slot />
@@ -151,74 +121,40 @@
 </footer>
 
 <style>
-	/* === NAVBAR FIJA === */
-	.navbar {
-		position: sticky;
-		top: 0;
-		z-index: 1055; /* más alto que el modal */
-		background-color: #d87272 !important;
-		color: white;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-		z-index: 1060 !important;
-	}
-	.navbar .nav-link {
-		color: rgb(22, 3, 3) !important;
-	}
+        /* === CUERPO Y FONDO === */
+        body {
+                background-image: url('https://i.imgur.com/G2ouTo5.jpeg');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                min-height: 100vh;
+        }
 
-	.navbar-nav .nav-link:hover {
-		background-color: rgba(206, 4, 4, 0.15);
-		transform: scale(1.07);
-	}
+        /* === FOOTER PEGADO === */
+        footer {
+                background-color: #7b1e1e;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                font-size: 0.9rem;
+        }
 
-	.navbar-nav .nav-link:focus {
-		background-color: #b22222 !important;
-		border-color: #ffffff;
-		color: #d30808 !important;
-	}
+        .footer-glass {
+                border-top: 2px solid #b22222;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
 
-	.navbar-brand img {
-		max-height: 70px;
-		transition: transform 0.3s ease;
-	}
+        .footer-glass small {
+                color: rgba(255, 255, 255, 0.7);
+        }
 
-	.navbar-brand img:hover {
-		transform: scale(1.05);
-	}
+        .social-links a {
+                font-size: 1.2rem;
+                text-decoration: none;
+                color: #fff;
+                transition: color 0.3s ease;
+        }
 
-	/* === CUERPO Y FONDO === */
-	body {
-		background-image: url('https://i.imgur.com/G2ouTo5.jpeg');
-		background-size: cover;
-		background-position: center;
-		background-attachment: fixed;
-		background-repeat: no-repeat;
-		min-height: 100vh;
-	}
-
-	/* === FOOTER PEGADO === */
-	footer {
-		background-color: #7b1e1e;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
-		font-size: 0.9rem;
-	}
-
-	.footer-glass {
-		border-top: 2px solid #b22222;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-	}
-
-	.footer-glass small {
-		color: rgba(255, 255, 255, 0.7);
-	}
-
-	.social-links a {
-		font-size: 1.2rem;
-		text-decoration: none;
-		color: #fff;
-		transition: color 0.3s ease;
-	}
-
-	.social-links a:hover {
-		color: #b22222;
-	}
+        .social-links a:hover {
+                color: #b22222;
+        }
 </style>

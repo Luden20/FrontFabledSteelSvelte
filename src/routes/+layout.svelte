@@ -14,7 +14,7 @@
   import { onMount } from 'svelte';
   import { authStore, initAuth } from "$lib/store/authStore";
   import Login from "./layoutCompontes/Login.svelte";
-
+	import Register from './layoutCompontes/Register.svelte';
   let rol = null;
   let usuario = null;
 
@@ -71,8 +71,9 @@
             <Login />
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/registrarse">Registrarse</a>
+            <Register />
           </li>
+
           <li class="nav-item">
             <span class="nav-link text-muted">DESLOGEADO</span>
           </li>

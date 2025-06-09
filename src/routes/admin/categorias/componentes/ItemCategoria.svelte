@@ -16,7 +16,8 @@
         id={categoria.CAT_ID_PK}
         endpoint={endpoint}
         callback={actualizarCategoriasAdmin}
-      /></td>
+      />
+    </td>
       <td>
         <BotonEditarCategoria categoria={categoria}/>
       </td>

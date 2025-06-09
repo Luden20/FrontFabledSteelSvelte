@@ -5,8 +5,9 @@
     import { API } from "../../service/apis.service";
     import { onMount } from "svelte";
     import { Table } from 'flowbite-svelte';
+    import { categorias,actualizarCategoriasAdmin } from "../../store/categoriaAdminStore";
+
     let mostrarModal = false;
-    let categorias=[];
     function abrir() {
         mostrarModal = true;
     }
@@ -17,12 +18,9 @@
     function abrirModal() {
         showModal = true;
     }
-    onMount(async()=>{
-        categorias=await API.GET(`/categoria/all`,true)
-        console.log(categorias);
-    })
+    onMount(actualizarCategoriasAdmin)
 </script>
-<button on:click={abrir}>Abrir</button>
+<button on:click={abrir}>Crear categoria</button>
 <ModalGenerico
   mostrar={mostrarModal}
   on:close={cerrar}
@@ -40,8 +38,8 @@
     </tr>
   </thead>
   <tbody>
-    {#if categorias.length > 0}
-      {#each categorias as categoria}
+    {#if $categorias.length > 0}
+      {#each $categorias as categoria}
         <ItemCategoria categoria={categoria} />
       {/each}
     {:else}

@@ -30,6 +30,7 @@
 	},
 	"dependencies": {
 		"flowbite-svelte": "^1.6.1",
-		"svelte-modal": "^0.4.0"
+		"svelte-modal": "^0.4.0",
+		"svelte-motion": "^0.12.2"
 	}
 }

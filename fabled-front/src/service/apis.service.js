@@ -19,23 +19,51 @@ export const API ={
     const data = await res.json();
     if (callback)
       callback(data);
-    if (!res.ok) {
-      return { success: false, mensaje: data.mensaje || 'Error desconocido' };
-    }
-    return { success: true, mensaje: data.mensaje };
+    return data;
   },
+  async DELETE(url,admin=false,callback=null) {
+    const postUrl = (admin ? ADMIN_API_URL : PUBLIC_API_URL) + url;
+    const res = await fetch(
+      postUrl,
+      {
+        method: 'DELETE',
+      }
+    );
+    const data = await res.json();
+    if (callback)
+      callback(data);
+    return data;
+  },
+  async UNDELETE(url,id,admin=false,callback=null) {
+    const postUrl = (admin ? ADMIN_API_URL : PUBLIC_API_URL) + url+'/Undelete/'+id;
+    const res = await fetch(
+      postUrl,
+      {
+        method: 'POST',
+      }
+    );
+    const data = await res.json();
+    if (callback)
+      callback(data);
+    return data;
+  },
+
   async GET(url,admin=false){
     const fetchUrl = (admin ? ADMIN_API_URL : PUBLIC_API_URL) + url;
     const res = await fetch(fetchUrl);
     return await res.json();
-  },POSTFORM(url, callback) {
+  },
+  
+  FORMCALL(endpoint,verb,callback=null,admin=false) {
   return async function (event) {
     event.preventDefault();
     const form = event.target;
     const datos = Object.fromEntries(new FormData(form).entries());
+    console.log(datos);
+    const url = (admin ? ADMIN_API_URL : PUBLIC_API_URL) + endpoint;
     try {
       const respuesta = await fetch(url, {
-        method: "POST",
+        method: verb,
         headers: {
           "Content-Type": "application/json",
         },
@@ -47,7 +75,7 @@ export const API ={
       return texto;
     } catch (error) {
       if (callback) callback(null, error);
-      return null;
+      return texto;
     }
   };
 }

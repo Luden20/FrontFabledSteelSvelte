@@ -61,7 +61,7 @@
     >
       Comprar
     </button>
-<button on:click={abrir}>Abrir</button>
+<button on:click={abrir}>Mas info</button>
   </div>
 </div>
 

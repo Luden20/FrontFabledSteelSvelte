@@ -3,7 +3,7 @@
   import { API } from "../../../service/apis.service";
   import { categorias,actualizarCategoriasAdmin } from "../../../store/categoriaAdminStore"
   import { createEventDispatcher } from "svelte";
-  import Resultado from "../../../componentesGenericos/Resultado.svelte";
+  export let categoria;
   let abierto = false;
   let resultado = null;
 
@@ -11,27 +11,22 @@
     resultado = error ? { mensaje: "Error al enviar los datos." } : respuesta;
     actualizarCategoriasAdmin();
   }
-    const handleSubmit = API.FORMCALL("/categoria",'POST',callback,true);
+    const handleSubmit = API.FORMCALL("/categoria",'PUT',callback,true);
 
 </script>
-
-
   <form on:submit={handleSubmit}>
+    <input name="CAT_ID_PK" type="hidden" bind:value={categoria.CAT_ID_PK}/>
+    <input name="ESTADO" type="hidden" bind:value={categoria.ESTADO}/>
     <label>
       Nombre
-      <input name="CAT_NOMBRE" type="text" />
+      <input name="CAT_NOMBRE" type="text" bind:value={categoria.CAT_NOMBRE}/>
     </label>
     <label>
       Descripción
-      <input name="CAT_DECRIPCION" type="text" />
-    </label>
-    <label>
-      Estado
-      <input name="ESTADO" type="text" />
+    <input name="CAT_DECRIPCION" type="text" bind:value={categoria.CAT_DECRIPCION}/>
     </label>
     <button type="submit">ENVIAR</button>
   </form>
-
   {#if resultado}
-  <Resultado mensaje={resultado.mensaje}/>
+    <p>{resultado.mensaje}</p>
   {/if}

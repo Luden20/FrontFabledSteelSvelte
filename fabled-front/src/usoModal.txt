@@ -1,0 +1,19 @@
+    <script>
+    import ModalGenerico from 
+    let mostrarModal = false;
+   function abrir() {
+        mostrarModal = true;
+    }
+
+    function cerrar() {
+        mostrarModal = false;
+    }
+</script>
+<button on:click={abrir}>Crear categoria</button>
+<ModalGenerico
+  mostrar={mostrarModal}
+  on:close={cerrar}
+  titulo="Crear Categoría"
+  componente={CrearCategoria}
+  props={{ extraProp: "algo" }}
+/>

@@ -1,10 +1,25 @@
 <script>
+  import BotonEstado from "../../../componentesGenericos/BotonEstado.svelte";
     export let categoria;
+    let endpoint='/categoria'
+    import { actualizarCategoriasAdmin } from "../../../store/categoriaAdminStore";
+    import EditarCategoria from "./EditarCategoria.svelte";
+    import BotonEditarCategoria from "./BotonEditarCategoria.svelte";
 </script>
 <tr>
     <td>{categoria.CAT_NOMBRE}</td>
     <td>{categoria.CAT_DECRIPCION}</td>
     <td>{categoria.ESTADO}</td>
+    <td> 
+      <BotonEstado 
+        estado={categoria.ESTADO}
+        id={categoria.CAT_ID_PK}
+        endpoint={endpoint}
+        callback={actualizarCategoriasAdmin}
+      /></td>
+      <td>
+        <BotonEditarCategoria categoria={categoria}/>
+      </td>
 </tr>
 <style>
 

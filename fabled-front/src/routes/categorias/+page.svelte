@@ -30,6 +30,7 @@
   componente={CrearCategoria}
   props={{ extraProp: "algo" }}
 />
+
 <Table id="table">
   <thead>
     <tr>

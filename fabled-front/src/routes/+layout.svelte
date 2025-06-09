@@ -12,8 +12,7 @@
   import '../app.css';
   import { authService } from "../service/auth.service";
   import { onMount } from 'svelte';
-  import { authStore, initAuth } from '../lib/authStore.js';
-  import Login from './layoutCompontes/Login.svelte';
+  import { authStore, initAuth } from "../store/authStore";
 
   let rol = null;
   let usuario = null;

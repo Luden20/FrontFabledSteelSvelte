@@ -5,16 +5,14 @@
 <script>
     import { authService } from "../../../service/auth.service";
     import { onMount } from 'svelte';
-
+  import { authStore, initAuth } from "../../../store/authStore";
+  import Login from "../../layoutCompontes/Login.svelte";
     let rol= null;
     let usuario=null;
-    onMount(() => {
-      rol = authService.obtenerRol();
-      usuario = authService.obtenerUsuario();
-
-      rol = `${rol}`; // forzar actualización de tipo string
-
-    });
+  authStore.subscribe(($auth) => {
+    rol = $auth.rol;
+    usuario = $auth.usuario;
+  });
 </script>
 <!-- Carrito flotante -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
@@ -50,12 +48,8 @@
           Pagar
         </button>
         {:else}
-      <button 
-        class="btn btn-secondary" 
-        data-bs-dismiss="modal" 
-        on:click={() => window.location.href = '/login'}>
-        Login
-      </button>
+<Login onLogin={()=>{}} />
+
 
         {/if}
         <input type="hidden" name="carritoJson" id="carritoJson" />

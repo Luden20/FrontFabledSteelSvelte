@@ -5,12 +5,21 @@
 </svelte:head>
 <script>
       import { onMount } from 'svelte';
+  import { authStore, initAuth } from "../../store/authStore";
 
 	import TiendaLista from "./componentes/TiendaLista.svelte";
 	import Carrito from './componentes/Carrito.svelte';
     let param = "Nombre";
     let buscado = "";
     let reloadKey = 0;
+    let rol = null;
+      let usuario = null;
+
+      // Actualiza las variables locales cuando cambie el store
+      authStore.subscribe(($auth) => {
+        rol = $auth.rol;
+        usuario = $auth.usuario;
+      });
 
   onMount(() => {
     if (typeof window.prepararCarrito === 'function') {

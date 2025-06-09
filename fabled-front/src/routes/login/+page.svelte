@@ -1,6 +1,6 @@
 <script>
   import { authService } from "../../service/auth.service";
-  import { initAuth } from "../../lib/authStore.js";
+  import { initAuth } from "../../store/authStore.jsjs";
 
   let user = "";
   let password = "";

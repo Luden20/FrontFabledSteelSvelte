@@ -1,5 +1,5 @@
 import { URLS } from './apis.service.js';
-import { authStore } from '../lib/authStore.js';
+import { authStore } from '../store/authStore.js';
 
 export const authService = {
   

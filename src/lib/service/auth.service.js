@@ -4,55 +4,51 @@ import { authStore } from '../store/authStore.js';
 import { closeLoginModal } from '../store/loginModalStore.js';
 
 export const authService = {
-  register(callback=null) {
-  return async function (event) {
-    event.preventDefault();
-    const form = event.target;
-    const datos = Object.fromEntries(new FormData(form).entries());
-    const cuenta={
-      CUE_PASSWORD:datos.CUE_PASSWORD,
-      CUE_NOMBRE:datos.CUE_NOMBRE,
-      CUE_APELLIDO:datos.CUE_APELLIDO,
-      CUE_EMAIL:datos.CUE_EMAIL,
-      CUE_FECHA_CREACION:datos.CUE_FECHA_CREACION,
-      cliente:{
-        CLI_NOMBRE:datos.CUE_NOMBRE,
-        CLI_APELLIDO:datos.CUE_APELLIDO,
-        CLI_DIRECCION:datos.CLI_DIRECCION,
-        CLI_CODIGO_POSTAL:datos.CLI_CODIGO_POSTAL,
-        CLI_CELULAR:datos.CLI_CELULAR,
-        CLI_CEDULA:datos.CLI_CEDULA
-      }
-    }
-    const url = `${URLS.PUBLIC_API_URL}/auth`;
-    try {
-      const respuesta = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+  register(callback = null) {
+    return async function (event) {
+      event.preventDefault();
+      const form = event.target;
+      const datos = Object.fromEntries(new FormData(form).entries());
+      const cuenta = {
+        CUE_PASSWORD: datos.CUE_PASSWORD,
+        CUE_NOMBRE: datos.CUE_NOMBRE,
+        CUE_APELLIDO: datos.CUE_APELLIDO,
+        CUE_EMAIL: datos.CUE_EMAIL,
+        CUE_FECHA_CREACION: datos.CUE_FECHA_CREACION,
+        cliente: {
+          CLI_NOMBRE: datos.CUE_NOMBRE,
+          CLI_APELLIDO: datos.CUE_APELLIDO,
+          CLI_DIRECCION: datos.CLI_DIRECCION,
+          CLI_CODIGO_POSTAL: datos.CLI_CODIGO_POSTAL,
+          CLI_CELULAR: datos.CLI_CELULAR,
+          CLI_CEDULA: datos.CLI_CEDULA,
         },
-        body: JSON.stringify(cuenta),
-      });
+      };
+      const url = `${URLS.PUBLIC_API_URL}/auth`;
+      let texto = {};
+      try {
+        const respuesta = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(cuenta),
+        });
 
-      const aux = await respuesta.json();
-      let texto={};
-      if(respuesta.ok)
-      {
-        texto.mensaje=aux;
-        texto.exito=true;
+        const aux = await respuesta.json();
+        texto.mensaje = aux;
+        texto.exito = respuesta.ok;
+      } catch (error) {
+        texto.mensaje = "Error al enviar los datos.";
+        texto.exito = false;
+        if (callback) callback(texto, error);
+        return texto;
       }
-      else
-      {
-        texto.mensaje="Error";
-        texto.exito=false;
-      }
+
       if (callback) callback(texto);
       return texto;
-    } catch (error) {
-      if (callback) callback(null, error);
-      return texto;
-    }
-  };},
+    };
+  },
    async login(user, password){
     const payload = {
       user: user,

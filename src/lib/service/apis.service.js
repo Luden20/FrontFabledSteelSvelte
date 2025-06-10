@@ -54,11 +54,12 @@ export const API ={
     return await res.json();
   },
   
-  FORMCALL(endpoint,verb,callback=null,admin=false) {
+  FORMCALL(endpoint,verb,callback=null,admin=false,transform=null) {
   return async function (event) {
     event.preventDefault();
     const form = event.target;
     const datos = Object.fromEntries(new FormData(form).entries());
+    const payload = transform ? transform(datos) : datos;
     console.log(datos);
     const url = (admin ? ADMIN_API_URL : PUBLIC_API_URL) + endpoint;
     try {
@@ -67,7 +68,7 @@ export const API ={
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(datos),
+        body: JSON.stringify(payload),
       });
 
       const texto = await respuesta.json();

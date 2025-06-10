@@ -6,6 +6,7 @@
     import { actualizarProductosAdmin } from "$lib/store/productosStore";
     import { onMount } from "svelte";
     import Resultado from "../../../../componentesGenericos/Resultado.svelte";
+    import ToastGenerico from "../../../../componentesGenericos/ToastGenerico.svelte";
     export let id;
     let resultado=null;
     let producto=null;
@@ -164,6 +165,9 @@
 {:else}
 <h6>Cargando...</h6>
 {/if}
+
   {#if resultado}
-  <Resultado mensaje={resultado.mensaje}/>
+  <ToastGenerico
+   mensaje={resultado.mensaje}
+   exito={resultado.exito}/>
   {/if}

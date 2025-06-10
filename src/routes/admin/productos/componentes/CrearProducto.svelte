@@ -6,6 +6,7 @@
     import { API } from "$lib/service/apis.service";
     import { productos,actualizarProductosAdmin } from "$lib/store/productosStore";
     import { onMount } from "svelte";
+    import ToastGenerico from "../../../../componentesGenericos/ToastGenerico.svelte";
     let categorias=[];
     let resultado=null;
     onMount(async()=>{
@@ -88,6 +89,9 @@ function transformarProducto(data) {
                 <a href="/Admin" class="btn btn-secondary ms-3">Volver al listado</a>
             </div>
 </form>
+
   {#if resultado}
-  <Resultado mensaje={resultado.mensaje}/>
+  <ToastGenerico
+   mensaje={resultado.mensaje}
+   exito={resultado.exito}/>
   {/if}

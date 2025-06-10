@@ -72,11 +72,14 @@ export const API ={
       });
 
       const texto = await respuesta.json();
+      // Si querías añadir esa marca al objeto:
+      texto.exito = respuesta.ok;
       if (callback) callback(texto);
       return texto;
-    } catch (error) {
+    } 
+    catch (error) {
       if (callback) callback(null, error);
-      return texto;
+      return { exito: false, error };
     }
   };
 }

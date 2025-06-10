@@ -6,6 +6,8 @@
   import Resultado from "../../../../componentesGenericos/Resultado.svelte";
   let abierto = false;
   let resultado = null;
+  import { toast } from "flowbite-svelte";
+	import ToastGenerico from "../../../../componentesGenericos/ToastGenerico.svelte";
 
   function callback(respuesta, error) {
     resultado = error ? { mensaje: "Error al enviar los datos." } : respuesta;
@@ -33,5 +35,7 @@
   </form>
 
   {#if resultado}
-  <Resultado mensaje={resultado.mensaje}/>
+  <ToastGenerico
+   mensaje={resultado.mensaje}
+   exito={resultado.exito}/>
   {/if}

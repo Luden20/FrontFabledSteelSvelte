@@ -31,6 +31,8 @@
 	"dependencies": {
 		"flowbite-svelte": "^1.6.1",
 		"svelte-modal": "^0.4.0",
-		"svelte-motion": "^0.12.2"
+		"svelte-motion": "^0.12.2",
+		"svelte-toast": "^1.0.0",
+		"svelte-toasts": "^1.1.2"
 	}
 }

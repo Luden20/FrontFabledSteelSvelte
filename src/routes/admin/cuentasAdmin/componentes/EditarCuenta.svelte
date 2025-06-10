@@ -2,6 +2,7 @@
     import { API } from "$lib/service/apis.service";
     import { onMount } from "svelte";
     import { cuentas,actualizarCuentas } from "$lib/store/cuentasStore";
+    import ToastGenerico from "../../../../componentesGenericos/ToastGenerico.svelte";
     import Resultado from "../../../../componentesGenericos/Resultado.svelte";
     export let id;
 
@@ -120,6 +121,9 @@
 </form>
 {/if}
 
+
   {#if resultado}
-  <Resultado mensaje={resultado.mensaje}/>
+  <ToastGenerico
+   mensaje={resultado.mensaje}
+   exito={resultado.exito}/>
   {/if}

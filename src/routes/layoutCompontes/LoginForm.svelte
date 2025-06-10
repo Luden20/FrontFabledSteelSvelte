@@ -1,22 +1,33 @@
 <script>
-  import { authService } from "$lib/service/auth.service";
-  import { initAuth } from "$lib/store/authStore.js";
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-  let user = "";
-  let password = "";
-
-  async function enviarFormulario(e) {
+    import { authService } from "$lib/service/auth.service";
+    import { initAuth } from "$lib/store/authStore.js";
+    import { createEventDispatcher } from 'svelte';
+    import { toasts } from 'svelte-toasts';
+import ToastGenerico from "../../componentesGenericos/ToastGenerico.svelte";
+    const dispatch = createEventDispatcher();
+    let user = "";
+    let password = "";
+    let resultado=null;
+    
+    async function enviarFormulario(e) {
     e.preventDefault();
-    try {
-      const res = await authService.login(user, password);
-      initAuth();
-      window.alert(`Respuesta: ${JSON.stringify(res)}`);
-      dispatch("logeado");
-    } catch (err) {
-      window.alert("Ocurrió un error durante el login.");
+    resultado = await authService.login(user, password);
+    initAuth();
+    lanzarToast(resultado.mensaje, resultado.exito); // <- corregido aquí
+    dispatch("logeado");
     }
-  }
+
+  export function lanzarToast(mensaje, exito = true) {
+  toasts.add({
+    title: exito ? 'Éxito' : 'Error',
+    description: mensaje,
+    type: exito ? 'success' : 'error',
+    duration: 3000,
+    placement: 'bottom-right',
+    theme: 'dark',
+    showProgress: true
+  });
+}
 </script>
 <main class="login-wrapper">
     <div class="login-card card border-2 border-danger text-black p-4">
@@ -34,6 +45,11 @@
     </div>
     
 </main>
+{#if resultado}
+  {#key resultado}
+    <ToastGenerico mensaje={resultado.mensaje} exito={resultado.exito} />
+  {/key}
+{/if}
 
 
 <style>    .form-label {

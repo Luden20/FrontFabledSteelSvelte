@@ -53,11 +53,14 @@ export const authService = {
       body: JSON.stringify(payload)
     });
     let esAdmin=await adminRes.json();
+    let respuesta=null;
     if(esAdmin==true)
     {
         sessionStorage.setItem("rol","admin");
         authStore.set({ rol: "admin" });
-        return "Admin bienvenido"+esAdmin;
+        respuesta.mensaje= "Admin bienvenido"+esAdmin;
+        respuesta.exito=true;
+        return respuesta;
     }
     const res = await fetch(`${URLS.PUBLIC_API_URL}/auth/login`, {
       method: 'POST',
@@ -74,9 +77,13 @@ export const authService = {
         if(typeof window !== 'undefined' && window.generar_carrito){
           window.generar_carrito();
         }
-        return "Logeo correcto"
+        respuesta.mensaje= "Logeo correcto";
+        respuesta.exito=true;
+        return respuesta;
     }
-    return "Error al logearse"
+    respuesta.mensaje= "Error al logearse"
+    respuesta.exito=false;
+    return respuesta;
   },
 obtenerUsuario() {
   if (typeof window !== 'undefined') {

@@ -4,6 +4,7 @@
   import { categorias,actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore"
   import { createEventDispatcher } from "svelte";
   import Resultado from "../../../../componentesGenericos/Resultado.svelte";
+  import ToastGenerico from "../../../../componentesGenericos/ToastGenerico.svelte";
   export let categoria;
   let abierto = false;
   let resultado = null;
@@ -28,6 +29,9 @@
     </label>
     <button type="submit">ENVIAR</button>
   </form>
+
   {#if resultado}
-  <Resultado mensaje={resultado.mensaje}/>
+  <ToastGenerico
+   mensaje={resultado.mensaje}
+   exito={resultado.exito}/>
   {/if}

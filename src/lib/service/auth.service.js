@@ -54,6 +54,7 @@ export const authService = {
     let esAdmin=await adminRes.json();
     if(esAdmin==true)
     {
+        sessionStorage.setItem("rol","admin");
         authStore.set({ rol: "admin" });
         return "Admin bienvenido"+esAdmin;
     }

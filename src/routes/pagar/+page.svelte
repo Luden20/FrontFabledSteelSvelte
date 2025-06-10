@@ -11,24 +11,13 @@
     let carrito=[];
     let rol=null;
     let usuario=null;
-        authStore.subscribe(($auth) => {
-        rol = $auth.rol;
-        usuario=$auth.usuario;
-  });
-
-    onMount(() => {
-    if(rol!="cliente")
-    {
-      goto("/tienda");
-    }
-    carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    pTotal = carrito.reduce((acc, item) => acc + item.producto.PRD_PRECIO * item.cantidad, 0);
-    IVA=pTotal * 0.15;
-    pTotalIVA=pTotal * 1.15;
-    });
 
 onMount(() => {
     initAuth();
+    carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    pTotal = carrito.reduce((acc, item) => acc + item.producto.PRD_PRECIO * item.cantidad, 0);
+    IVA = pTotal * 0.15;
+    pTotalIVA = pTotal * 1.15;
     const unsubscribe = authStore.subscribe(($auth) => {
         rol = $auth.rol;
         usuario = $auth.usuario;
@@ -37,7 +26,7 @@ onMount(() => {
         }
     });
     return unsubscribe;
-    });
+});
     
 </script>
 <main class="container py-5">

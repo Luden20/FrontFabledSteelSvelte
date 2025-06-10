@@ -53,7 +53,7 @@ export const authService = {
       body: JSON.stringify(payload)
     });
     let esAdmin=await adminRes.json();
-    let respuesta=null;
+    let respuesta = {};
     if(esAdmin==true)
     {
         sessionStorage.setItem("rol","admin");

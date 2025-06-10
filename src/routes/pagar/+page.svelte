@@ -3,19 +3,30 @@
     import { authService } from "$lib/service/auth.service";
     import CuentasItem from './componentes/CuentasItem.svelte';
     import Pagar from './componentes/Pagar.svelte';
+    import { goto } from "$app/navigation";
+    import { authStore,initAuth } from "$lib/store/authStore";
     let pTotal=0;
     let IVA=0;
     let pTotalIVA=0
     let carrito=[];
+    let rol=null;
+    let usuario=null;
+        authStore.subscribe(($auth) => {
+        rol = $auth.rol;
+        usuario=$auth.usuario;
+  });
+
     onMount(() => {
+    if(rol!="cliente")
+    {
+      goto("/tienda");
+    }
     carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     pTotal = carrito.reduce((acc, item) => acc + item.producto.PRD_PRECIO * item.cantidad, 0);
     IVA=pTotal * 0.15;
     pTotalIVA=pTotal * 1.15;
     });
 
-  let rol= null;
-  let usuario=null;
 onMount(() => {
     rol = authService.obtenerRol();
     usuario = authService.obtenerUsuario();

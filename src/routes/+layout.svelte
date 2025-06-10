@@ -46,9 +46,6 @@
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
         {#if rol === "admin"}
           <li class="nav-item"><a class="nav-link" href="/admin">Panel</a></li>
           <li class="nav-item"><span class="nav-link text-danger">ADMIN</span></li>
@@ -67,6 +64,9 @@
           <li class="nav-item"><Register /></li>
           <li class="nav-item"><span class="nav-link text-muted">DESLOGEADO</span></li>
         {/if}
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
       </ul>
     </div>
   </div>

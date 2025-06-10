@@ -14,7 +14,8 @@
   import { onMount } from 'svelte';
   import { authStore, initAuth } from "$lib/store/authStore";
   import Login from "./layoutCompontes/Login.svelte";
-	import Register from './layoutCompontes/Register.svelte';
+  import Register from './layoutCompontes/Register.svelte';
+  import { goto } from '$app/navigation';
   let rol = null;
   let usuario = null;
 
@@ -40,54 +41,32 @@
       <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="d-block d-sm-none" style="height: 30px;">
       <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="d-none d-sm-block" style="height: 50px;">
     </a>
-    
-          {#if rol === "admin"}
-          <li class="nav-item">
-            <a class="nav-link" href="/admin">Panel</a>
-          </li>
-          <li class="nav-item">
-            <span class="nav-link text-danger">ADMIN</span>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={() => {authService.cerrarSesion();goto("/tienda");}}>Cerrar Sesión</button>
-          </li>
-        {:else if rol === "cliente"&& usuario!==null}
-          <li class="nav-item">
-            <span class="nav-link text-success">Bienvenido {usuario?.CUE_NOMBRE} {usuario?.CUE_APELLIDO}</span>
-                  </li>
-        <li class="nav-item">
-          <a href="/tienda" class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;">Tienda</a>
-        </li>
 
-          <li class="nav-item">
-            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
-          </li>
-
-        {:else}
-        <li class="nav-item">
-          <a href="/tienda" class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;">Tienda</a>
-        </li>
-          <li class="nav-item">
-            <Login />
-          </li>
-          <li class="nav-item">
-            <Register />
-          </li>
-
-          <li class="nav-item">
-            <span class="nav-link text-muted">DESLOGEADO</span>
-          </li>
-        {/if}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav me-auto">
-                  <li class="nav-item">
-            <a class="nav-link" href="/admin">Panel</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {#if rol === "admin"}
+          <li class="nav-item"><a class="nav-link" href="/admin">Panel</a></li>
+          <li class="nav-item"><span class="nav-link text-danger">ADMIN</span></li>
+          <li class="nav-item">
+            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={() => {authService.cerrarSesion(); goto('/tienda');}}>Cerrar Sesión</button>
           </li>
+        {:else if rol === "cliente" && usuario !== null}
+          <li class="nav-item"><span class="nav-link text-success">Bienvenido {usuario?.CUE_NOMBRE} {usuario?.CUE_APELLIDO}</span></li>
+          <li class="nav-item"><a href="/tienda" class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;">Tienda</a></li>
+          <li class="nav-item">
+            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+          </li>
+        {:else}
+          <li class="nav-item"><a href="/tienda" class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;">Tienda</a></li>
+          <li class="nav-item"><Login /></li>
+          <li class="nav-item"><Register /></li>
+          <li class="nav-item"><span class="nav-link text-muted">DESLOGEADO</span></li>
+        {/if}
       </ul>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import { URLS } from './apis.service.js';
 import { API } from './apis.service.js';
 import { authStore } from '../store/authStore.js';
+import { closeLoginModal } from '../store/loginModalStore.js';
 
 export const authService = {
   register(callback=null) {
@@ -93,6 +94,7 @@ obtenerRol() {
     if (typeof window !== 'undefined') {
       sessionStorage.clear();
       authStore.set({ usuario: null, rol: null });
+      closeLoginModal();
     }
   }
 };

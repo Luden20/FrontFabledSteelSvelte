@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte';
     import { authService } from "$lib/service/auth.service";
+    import { authStore, initAuth } from "$lib/store/authStore";
+    import { goto } from '$app/navigation';
     import CuentasItem from './componentes/CuentasItem.svelte';
     import Pagar from './componentes/Pagar.svelte';
     let pTotal=0;
@@ -17,11 +19,15 @@
   let rol= null;
   let usuario=null;
 onMount(() => {
-    rol = authService.obtenerRol();
-    usuario = authService.obtenerUsuario();
-
-    rol = `${rol}`; // forzar actualización de tipo string
-
+    initAuth();
+    const unsubscribe = authStore.subscribe(($auth) => {
+        rol = $auth.rol;
+        usuario = $auth.usuario;
+        if (rol !== 'cliente') {
+            goto('/tienda');
+        }
+    });
+    return unsubscribe;
     });
     
 </script>

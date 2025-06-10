@@ -3,10 +3,23 @@
     import { onMount } from "svelte";
     import { actualizarProductosAdmin,productos } from "$lib/store/productosStore";
     import ItemProducto from "./componentes/ItemProducto.svelte";
-    import BuscadorProducto from "./componentes/BuscadorProducto.svelte";
+    import BuscadorGenerico from "../../../componentesGenericos/BuscadorGenerico.svelte";
+    import BotonModalGenerico from "../../../componentesGenericos/BotonModalGenerico.svelte";
+    import CrearProducto from "./componentes/CrearProducto.svelte";
+    let params=[{llave:"Nombre",valor:"Nombre"},
+                {llave:"Autor",valor:"Autor"}
+    ]
     onMount(actualizarProductosAdmin)
 </script>
-<BuscadorProducto/>
+<BuscadorGenerico
+  params={params}
+  callback={actualizarProductosAdmin}
+/>
+<BotonModalGenerico
+    componente={CrearProducto}
+    textoBoton={"Crear Producto"}
+    tipo={"Titulo"}
+/>
 <div class="table">
     <Table>
   <thead>

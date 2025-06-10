@@ -1,25 +1,26 @@
 <script>
-    import ModalGenerico from "../../../../componentesGenericos/ModalGenerico.svelte";
-    import CrearCategoria from "./CrearCategoria.svelte";
+    import ModalGenerico from "./ModalGenerico.svelte";
+    export let componente;
+    export let textoBoton;
+    export let titulo;
+    export let props={};
+    export let tipo="normal";
     let mostrarModal = false;
-    function abrir() {
+   function abrir() {
         mostrarModal = true;
     }
 
     function cerrar() {
         mostrarModal = false;
     }
-    function abrirModal() {
-        showModal = true;
-    }
 </script>
-<button on:click={abrir}>Crear categoria</button>
+<button on:click={abrir}>{textoBoton}</button>
 <ModalGenerico
   mostrar={mostrarModal}
   on:close={cerrar}
-  titulo="Crear Categoría"
-  componente={CrearCategoria}
-  props={{ extraProp: "algo" }}
+  titulo={titulo}
+  componente={componente}
+  props={ props }
 />
 <style>
       button {

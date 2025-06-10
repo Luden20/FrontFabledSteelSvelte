@@ -4,7 +4,7 @@
     let endpoint='/categoria'
     import { actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore";
     import EditarCategoria from "./EditarCategoria.svelte";
-    import BotonEditarCategoria from "./BotonEditarCategoria.svelte";
+    import BotonModalGenerico from "../../../../componentesGenericos/BotonModalGenerico.svelte";
 </script>
 <tr>
     <td>{categoria.CAT_NOMBRE}</td>
@@ -19,7 +19,12 @@
       />
     </td>
       <td>
-        <BotonEditarCategoria categoria={categoria}/>
+        <BotonModalGenerico
+        componente={EditarCategoria}
+        textoBoton={"Editar"}
+        titulo={"Editar Categoria"}
+        props={{categoria:categoria}}
+      />
       </td>
 </tr>
 <style>

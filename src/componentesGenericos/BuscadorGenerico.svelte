@@ -1,12 +1,14 @@
 <script>
-    import { actualizarFacturasAdmin } from "$lib/store/facturaAdminStore";
-    let param="cedula";
+    export let params;
+    export let callback=()=>{};
+    let param=params[0].llave;
     let buscado="";
 </script>
 <div class="col-auto">
     <select bind:value={param} class="form-select">
-        <option value="cedula">Cédula</option>
-        <option value="Nfactura"># de Factura</option>
+        {#each params as item}
+        <option value={item.llave}>{item.valor}</option>
+        {/each}
     </select>
 </div>
 
@@ -22,7 +24,7 @@
 <div class="col-auto">
     <button 
         class="btn btn-primary"
-        on:click={() => actualizarFacturasAdmin(param, buscado)}
+        on:click={() => callback(param, buscado)}
     >
         Buscar
     </button>

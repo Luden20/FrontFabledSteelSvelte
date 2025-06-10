@@ -1,9 +1,9 @@
 <script>
     import BotonEstado from "../../../../componentesGenericos/BotonEstado.svelte";
     import { actualizarCuentas } from "$lib/store/cuentasStore";
-    import BotonEditarCategoria from "../../categorias/componentes/BotonEditarCategoria.svelte";
-	import BotonEditarCuenta from "./BotonEditarCuenta.svelte";
+    import BotonModalGenerico from "../../../../componentesGenericos/BotonModalGenerico.svelte";
     export let cuenta;
+    import EditarCuenta from "./EditarCuenta.svelte";
     let endpoint="/cuentaCliente";
 </script>
 <tr>
@@ -23,6 +23,11 @@
       />
     </td>
     <td>
-        <BotonEditarCuenta id={cuenta.CUE_ID_PK}/>
+      <BotonModalGenerico
+        componente={EditarCuenta}
+        textoBoton={"Editar"}
+        titulo={"Editar Cuenta"}
+        props={{id:cuenta.CUE_ID_PK}}
+      />
     </td>
 </tr>

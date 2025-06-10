@@ -1,4 +1,5 @@
 <script>
+  //ac ami companiero sebas metera animaciones chidas
   import { scale } from 'svelte/transition';
   export let mensaje = '';
 </script>

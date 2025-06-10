@@ -3,6 +3,7 @@
   import { API } from "$lib/service/apis.service";
   import { categorias,actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore"
   import { createEventDispatcher } from "svelte";
+  import Resultado from "../../../../componentesGenericos/Resultado.svelte";
   export let categoria;
   let abierto = false;
   let resultado = null;
@@ -28,5 +29,5 @@
     <button type="submit">ENVIAR</button>
   </form>
   {#if resultado}
-    <p>{resultado.mensaje}</p>
+  <Resultado mensaje={resultado.mensaje}/>
   {/if}

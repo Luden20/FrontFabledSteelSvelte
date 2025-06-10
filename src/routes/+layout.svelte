@@ -41,7 +41,7 @@
       <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="d-none d-sm-block" style="height: 50px;">
     </a>
     
-          {#if rol === "admin"&& usuario!=null}
+          {#if rol === "admin"}
           <li class="nav-item">
             <a class="nav-link" href="/admin">Panel</a>
           </li>

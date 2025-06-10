@@ -2,6 +2,7 @@
     import { API } from "$lib/service/apis.service";
     import { onMount } from "svelte";
     import { cuentas,actualizarCuentas } from "$lib/store/cuentasStore";
+    import Resultado from "../../../../componentesGenericos/Resultado.svelte";
     export let id;
 
     let cuenta = null;
@@ -119,6 +120,6 @@
 </form>
 {/if}
 
-{#if resultado}
-  <p>{resultado.mensaje}</p>
-{/if}
+  {#if resultado}
+  <Resultado mensaje={resultado.mensaje}/>
+  {/if}

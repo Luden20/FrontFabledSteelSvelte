@@ -1,12 +1,16 @@
 <script>
     import { facturas,actualizarFacturasAdmin } from "$lib/store/facturaAdminStore";
     import { Table } from "flowbite-svelte";
+    import BuscadorGenerico from "../../../componentesGenericos/BuscadorGenerico.svelte";
     import { onMount } from "svelte";
-	import ItemFacturas from "./compontentes/ItemFacturas.svelte";
-    import BuscadorFacturas from "./compontentes/BuscadorFacturas.svelte";
+	  import ItemFacturas from "./compontentes/ItemFacturas.svelte";
+    let params=[{llave:"cedula",valor:"Cédula"},{llave:"Nfactura",valor:"# de Factura"}]
     onMount(actualizarFacturasAdmin);
 </script>
-<BuscadorFacturas/>
+<BuscadorGenerico
+  params={params}
+  callback={actualizarFacturasAdmin}
+/>
 <div class="table">
     <Table>
   <thead>

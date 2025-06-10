@@ -1,12 +1,17 @@
 <script>
     import ItemCategoria from "./componentes/ItemCategoria.svelte";
     import { onMount } from "svelte";
-    import BotonCrearCategoria from "./componentes/BotonCrearCategoria.svelte";
     import { Table } from 'flowbite-svelte';
     import { categorias,actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore";
+    import BotonModalGenerico from "../../../componentesGenericos/BotonModalGenerico.svelte";
+    import CrearCategoria from "./componentes/CrearCategoria.svelte";
     onMount(actualizarCategoriasAdmin)
 </script>
-<BotonCrearCategoria/>
+      <BotonModalGenerico
+        componente={CrearCategoria}
+        textoBoton={"Crear"}
+        titulo={"Crear categoria"}
+      />
 <div class="table"><Table id="table">
   <thead>
     <tr>

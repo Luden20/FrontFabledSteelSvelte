@@ -6,8 +6,9 @@
   import CategoriasAdmin from "./categorias/categoriasAdmin.svelte";
   import CuentasAdmin from "./cuentasAdmin/cuentasAdmin.svelte";
   import ProductosAdmin from "./productos/productosAdmin.svelte";
-
+  import Estadisticas from "./estadisticas/estadisticas.svelte";
   let tabs = [
+    {nombre:"Estadisticas",componente:Estadisticas},
     {nombre:"Productos",componente:ProductosAdmin},
     {nombre:"Cuentas y clientes",componente:CuentasAdmin},
     { nombre: "Facturas", componente: FacturasAdmin },

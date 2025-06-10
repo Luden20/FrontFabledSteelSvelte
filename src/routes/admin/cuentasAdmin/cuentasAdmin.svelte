@@ -3,10 +3,15 @@
     import { Table } from "flowbite-svelte";
     import ItemCuenta from "./componentes/ItemCuenta.svelte";
     import { cuentas,actualizarCuentas } from "$lib/store/cuentasStore";
-    import BuscadorCuentas from "./componentes/BuscadorCuentas.svelte";
+    import BuscadorGenerico from "../../../componentesGenericos/BuscadorGenerico.svelte";
+    let buscar=[{llave:"cedula",valor:"Cedula"},
+                {llave:"nombre",valor:"Nombre"}]
     onMount(actualizarCuentas);
 </script>
-<BuscadorCuentas/>
+<BuscadorGenerico
+  params={buscar}
+  callback={actualizarCuentas}
+/>
 <div class="table"><Table id="table">
   <thead>
     <tr>

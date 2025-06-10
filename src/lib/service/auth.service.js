@@ -1,4 +1,5 @@
 import { URLS } from './apis.service.js';
+import { API } from './apis.service.js';
 import { authStore } from '../store/authStore.js';
 
 export const authService = {
@@ -45,7 +46,17 @@ export const authService = {
       user: user,
       password: password
     };
-
+    const adminRes = await fetch(`${URLS.ADMIN_API_URL}/adminAuth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    let esAdmin=await adminRes.json();
+    if(esAdmin==true)
+    {
+        authStore.set({ rol: "admin" });
+        return "Admin bienvenido"+esAdmin;
+    }
     const res = await fetch(`${URLS.PUBLIC_API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

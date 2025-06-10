@@ -3,7 +3,7 @@
   import { FacturaService } from '$lib/service/factura.service';
   import InfoBanco from './InfoBanco.svelte';
   import CuentasItem from './CuentasItem.svelte';
-
+  import ToastGenerico from '../../../componentesGenericos/ToastGenerico.svelte';
   export let cedula;
   export let total;
   export let carrito;
@@ -13,6 +13,7 @@
   let info = null;
   let res=null;
   let mensaje=null;
+  let exito=null;
   let porPagar=true;
   onMount(async () => {
     info = await FacturaService.obtenerCuenta(cedula);
@@ -31,6 +32,7 @@
     };
     res=await FacturaService.Facturar(idCliente,carrito,cuentaSeleccionada.cuenta_id);
     mensaje=res.mensaje;
+    exito=res.success;
     porPagar=false;
 localStorage.setItem('carrito', JSON.stringify([]));
   }
@@ -67,10 +69,12 @@ localStorage.setItem('carrito', JSON.stringify([]));
     {/if}
   </div>
   {#if mensaje}
-    <h1>{mensaje}</h1>
+    <ToastGenerico
+    mensaje={mensaje}
+    exito={exito}/>
      <a href="/tienda" class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;">Volver a la tienda</a>
 
   {/if}
 {:else}
-  <h5 class="text-danger mt-3">No tiene cuenta en el banco</h5>
+  <h5 class="text-danger mt-3">Cargando</h5>
 {/if}

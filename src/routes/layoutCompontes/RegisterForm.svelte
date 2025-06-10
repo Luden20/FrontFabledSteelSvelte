@@ -2,13 +2,18 @@
   import { authService } from "$lib/service/auth.service";
   import { createEventDispatcher } from "svelte";
   import Resultado from "../../componentesGenericos/Resultado.svelte";
-
+  import ToastGenerico from "../../componentesGenericos/ToastGenerico.svelte";
   const dispatch = createEventDispatcher();
-  let resultado = null;
+let resultado = null;
 
-  function callback(respuesta, error) {
-    resultado = error ? { mensaje: "Error al enviar los datos." } : respuesta;
-  }
+function callback(respuesta, error) {
+  resultado = error
+    ? { mensaje: "Error al enviar los datos.", exito: false }
+    : respuesta;
+  
+  resultado.key = Date.now(); 
+}
+
   function soloNumeros(event) {
     event.target.value = event.target.value.replace(/\D/g, '');
   }
@@ -140,12 +145,16 @@
   </div>
 
   <div class="d-flex justify-content-center">
+    {#if !resultado ||resultado.exito==false}
     <button type="submit" class="btn btn-fabled-red rounded-pill px-5">
       Registrar
     </button>
+    {/if}
   </div>
 </form>
 
 {#if resultado}
-  <Resultado mensaje={resultado.mensaje} />
+  {#key resultado.key}
+    <ToastGenerico mensaje={resultado.mensaje} exito={resultado.exito} />
+  {/key}
 {/if}

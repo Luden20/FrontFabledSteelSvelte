@@ -1,22 +1,38 @@
 <script>
-    import { API } from "$lib/service/apis.service";
-    export let estado;
-    export let id;
-    export let endpoint;
-    let url=null;
-    export let callback=()=>{};
-    async function borrar()
-    {
-        url=`${endpoint}/${id}`;
-        await API.DELETE(url,true);
-        callback();
-    }
-    async function desborrar()
-    {
-        await API.UNDELETE(endpoint,id,true);
-        callback();
-    }
+  import { API } from "$lib/service/apis.service";
+  import { toasts } from "svelte-toasts"; 
+
+  export let estado;
+  export let id;
+  export let endpoint;
+  export let callback = () => {};
+
+  function lanzarToast(mensaje, exito = true) {
+    toasts.add({
+      title: exito ? 'Éxito' : 'Error',
+      description: mensaje,
+      type: exito ? 'success' : 'error',
+      duration: 3000,
+      placement: 'bottom-right',
+      theme: 'dark',
+      showProgress: true
+    });
+  }
+
+  async function borrar() {
+    const url = `${endpoint}/${id}`;
+    await API.DELETE(url, true);
+    callback();
+    lanzarToast("Borrado Exitoso", true);
+  }
+
+  async function desborrar() {
+    await API.UNDELETE(endpoint, id, true);
+    callback();
+    lanzarToast("Desborrado Exitoso", true);
+  }
 </script>
+
 {#if estado=='ACT'}
 <button on:click={borrar}>Borrar</button>
 {:else}

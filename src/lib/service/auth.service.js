@@ -34,7 +34,18 @@ export const authService = {
         body: JSON.stringify(cuenta),
       });
 
-      const texto = await respuesta.json();
+      const aux = await respuesta.json();
+      let texto={};
+      if(respuesta.ok)
+      {
+        texto.mensaje=aux;
+        texto.exito=true;
+      }
+      else
+      {
+        texto.mensaje="Error";
+        texto.exito=false;
+      }
       if (callback) callback(texto);
       return texto;
     } catch (error) {
@@ -58,7 +69,7 @@ export const authService = {
     {
         sessionStorage.setItem("rol","admin");
         authStore.set({ rol: "admin" });
-        respuesta.mensaje= "Admin bienvenido"+esAdmin;
+        respuesta.mensaje= "Admin bienvenido";
         respuesta.exito=true;
         return respuesta;
     }
@@ -69,7 +80,7 @@ export const authService = {
     });
     
     let cuenta= await res.json();
-    if(cuenta.CUE_ID_PK!=-1)
+    if(res.ok)
     {
         sessionStorage.setItem("usuario",JSON.stringify(cuenta));
         sessionStorage.setItem("rol","cliente");

@@ -1,21 +1,35 @@
 <script>
-    import { authService } from "$lib/service/auth.service";
-    import { initAuth } from "$lib/store/authStore.js";
-    import { createEventDispatcher } from 'svelte';
-import ToastGenerico from "../../componentesGenericos/ToastGenerico.svelte";
-    const dispatch = createEventDispatcher();
-    let user = "";
-    let password = "";
-    let resultado=null;
-    
-    async function enviarFormulario(e) {
+  import { authService } from "$lib/service/auth.service";
+  import { initAuth } from "$lib/store/authStore.js";
+  import { createEventDispatcher } from 'svelte';
+  import { toasts } from 'svelte-toasts'; // ✅ IMPORTANTE
+
+  const dispatch = createEventDispatcher();
+  let user = "";
+  let password = "";
+  let resultado = null;
+
+  function lanzarToast(mensaje, exito = true) {
+    toasts.add({
+      title: exito ? 'Éxito' : 'Error',
+      description: mensaje,
+      type: exito ? 'success' : 'error',
+      duration: 3000,
+      placement: 'bottom-right',
+      theme: 'dark',
+      showProgress: true
+    });
+  }
+
+  async function enviarFormulario(e) {
     e.preventDefault();
     resultado = await authService.login(user, password);
+    lanzarToast(resultado.mensaje, resultado.exito); 
     initAuth();
     dispatch("logeado");
-    }
-
+  }
 </script>
+
 <main class="login-wrapper">
     <div class="login-card card border-2 border-danger text-black p-4">
         <h2 class="text-center text-danger mb-4" style="font-family: 'Cinzel', serif;">Inicio de Sesión</h2>
@@ -32,11 +46,7 @@ import ToastGenerico from "../../componentesGenericos/ToastGenerico.svelte";
     </div>
     
 </main>
-{#if resultado}
-  {#key resultado}
-    <ToastGenerico mensaje={resultado.mensaje} exito={resultado.exito} />
-  {/key}
-{/if}
+
 
 
 <style>    .form-label {

@@ -160,7 +160,9 @@
             <input type="hidden" name="categoriasJson" id="categoriasJson" value="[]">
             <input type="hidden" name="categoriasEliminadasJson" id="categoriasEliminadasJson" value="[]">
             <input type="hidden" name="imagenesEliminadasJson" id="imagenesEliminadasJson" value="[]">
+            {#if !resultado}
             <input type="submit" value="Guardar Cambios" class="btn btn-success px-4 rounded-pill">
+            {/if}
 </form>
 {:else}
 <h6>Cargando...</h6>

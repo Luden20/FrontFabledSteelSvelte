@@ -84,10 +84,11 @@ function transformarProducto(data) {
             </div>
             <input type="hidden" name="imagenesJson" id="imagenesJson">
             <input type="hidden" name="categoriasJson" id="categoriasJson">
+            {#if !resultado}
             <div class="text-center mt-4">
                 <input type="submit" value="Crear Producto" class="btn btn-success px-4 rounded-pill">
-                <a href="/Admin" class="btn btn-secondary ms-3">Volver al listado</a>
             </div>
+            {/if}
 </form>
 
   {#if resultado}

@@ -113,11 +113,11 @@
         <label class="form-label" for="CLI_CEDULA">Cédula</label>
         <input class="form-control custom-input" id="CLI_CEDULA" name="CLI_CEDULA" type="text" value={cuenta.cliente?.CLI_CEDULA} />
     </div>
-
+    {#if !resultado}
     <div class="d-flex justify-content-between mt-4">
         <input type="submit" value="Guardar" class="btn btn-outline-danger px-4" />
-        <a href="/Cuenta" class="btn btn-outline-light px-4">Cancelar</a>
     </div>
+    {/if}
 </form>
 {/if}
 

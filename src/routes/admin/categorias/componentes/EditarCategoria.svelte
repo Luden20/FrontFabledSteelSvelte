@@ -27,8 +27,9 @@
       Descripción
     <input name="CAT_DECRIPCION" type="text" bind:value={categoria.CAT_DECRIPCION}/>
     </label>
-    <button type="submit">ENVIAR</button>
-  </form>
+    {#if !resultado}
+        <button type="submit">ENVIAR</button>
+    {/if}  </form>
 
   {#if resultado}
   <ToastGenerico

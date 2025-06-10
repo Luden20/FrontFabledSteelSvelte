@@ -31,7 +31,9 @@
       Estado
       <input name="ESTADO" type="text" />
     </label>
-    <button type="submit">ENVIAR</button>
+    {#if !resultado}
+        <button type="submit">ENVIAR</button>
+    {/if}
   </form>
 
   {#if resultado}

@@ -1,6 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
-	import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
+        import { onMount } from 'svelte';
+        import { toasts } from 'svelte-toasts';
     export let mensaje;
     export let exito;
 	const showToast = () => {
@@ -19,6 +19,4 @@
 		showToast();
 	});
 </script>
-<ToastContainer let:data={data}>
-	<FlatToast {data} />
-</ToastContainer>
+

@@ -22,11 +22,16 @@
       });
 
   onMount(() => {
+              window.generar_carrito();
+
     if (typeof window.prepararCarrito === 'function') {
       window.prepararCarrito();
     } else {
       console.warn("carrito.js aún no ha definido la función generar_carrito");
     }
+            if(typeof window !== 'undefined' && window.generar_carrito){
+          window.generar_carrito();
+        }
   });
 
 </script>

@@ -2,17 +2,14 @@
     import { authService } from "$lib/service/auth.service";
     import { initAuth } from "$lib/store/authStore.js";
     import { createEventDispatcher } from 'svelte';
-import ToastGenerico from "../../componentesGenericos/ToastGenerico.svelte";
     const dispatch = createEventDispatcher();
     let user = "";
     let password = "";
-    let resultado=null;
-    
     async function enviarFormulario(e) {
     e.preventDefault();
-    resultado = await authService.login(user, password);
+    const resultado = await authService.login(user, password);
     initAuth();
-    dispatch("logeado");
+    dispatch("logeado", resultado);
     }
 
 </script>
@@ -32,11 +29,7 @@ import ToastGenerico from "../../componentesGenericos/ToastGenerico.svelte";
     </div>
     
 </main>
-{#if resultado}
-  {#key resultado}
-    <ToastGenerico mensaje={resultado.mensaje} exito={resultado.exito} />
-  {/key}
-{/if}
+
 
 
 <style>    .form-label {

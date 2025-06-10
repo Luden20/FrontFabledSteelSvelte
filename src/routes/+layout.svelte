@@ -49,7 +49,7 @@
             <span class="nav-link text-danger">ADMIN</span>
           </li>
           <li class="nav-item">
-            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+            <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={() => {authService.cerrarSesion();goto("/tienda");}}>Cerrar Sesión</button>
           </li>
         {:else if rol === "cliente"&& usuario!==null}
           <li class="nav-item">

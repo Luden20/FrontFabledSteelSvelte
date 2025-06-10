@@ -7,6 +7,23 @@
   import CuentasAdmin from "./cuentasAdmin/cuentasAdmin.svelte";
   import ProductosAdmin from "./productos/productosAdmin.svelte";
   import Estadisticas from "./estadisticas/estadisticas.svelte";
+  import { authStore,initAuth } from "$lib/store/authStore";
+  import { onMount } from "svelte";
+  let rol=null;
+	import { goto } from "$app/navigation";
+    authStore.subscribe(($auth) => {
+    rol = $auth.rol;
+  });
+
+  // Refresca la información desde sessionStorage al montar
+  onMount(() => {
+    initAuth();
+    if(rol!="admin")
+    {
+      goto("/tienda");
+    }
+  });
+
   let tabs = [
     {nombre:"Estadisticas",componente:Estadisticas},
     {nombre:"Productos",componente:ProductosAdmin},

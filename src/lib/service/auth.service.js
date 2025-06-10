@@ -71,6 +71,9 @@ export const authService = {
         sessionStorage.setItem("usuario",JSON.stringify(cuenta));
         sessionStorage.setItem("rol","cliente");
         authStore.set({ usuario: cuenta, rol: 'cliente' });
+        if(typeof window !== 'undefined' && window.generar_carrito){
+          window.generar_carrito();
+        }
         return "Logeo correcto"
     }
     return "Error al logearse"
@@ -95,6 +98,9 @@ obtenerRol() {
       sessionStorage.clear();
       authStore.set({ usuario: null, rol: null });
       closeLoginModal();
+      if(window.generar_carrito){
+        window.generar_carrito();
+      }
     }
   }
 };

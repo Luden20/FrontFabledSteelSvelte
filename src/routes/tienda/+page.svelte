@@ -22,16 +22,14 @@
       });
 
   onMount(() => {
-              window.generar_carrito();
+      const script = document.createElement('script');
+      script.src = '/scripts/carrito.js';
+      script.onload = () => {
+        prepararCarrito();
+        generar_carrito();}
+      ;
+      document.body.appendChild(script);
 
-    if (typeof window.prepararCarrito === 'function') {
-      window.prepararCarrito();
-    } else {
-      console.warn("carrito.js aún no ha definido la función generar_carrito");
-    }
-            if(typeof window !== 'undefined' && window.generar_carrito){
-          window.generar_carrito();
-        }
   });
 
 </script>

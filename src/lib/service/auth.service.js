@@ -98,8 +98,6 @@ obtenerRol() {
       sessionStorage.clear();
       authStore.set({ usuario: null, rol: null });
       closeLoginModal();
-      // No actualizamos la vista del carrito aquí para evitar
-      // que se pierdan los datos si el componente no está cargado
     }
   }
 };

@@ -1,6 +1,3 @@
-let carritoGuardado = localStorage.getItem('carrito')||[];
-//let carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
-let carrito = [];
 try {
     carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 } catch (e) {

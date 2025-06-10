@@ -5,8 +5,6 @@
     import { goto } from '$app/navigation';
     import CuentasItem from './componentes/CuentasItem.svelte';
     import Pagar from './componentes/Pagar.svelte';
-    import { goto } from "$app/navigation";
-    import { authStore,initAuth } from "$lib/store/authStore";
     let pTotal=0;
     let IVA=0;
     let pTotalIVA=0

@@ -15,6 +15,7 @@
   import { authStore, initAuth } from "$lib/store/authStore";
   import Login from "./layoutCompontes/Login.svelte";
   import Register from './layoutCompontes/Register.svelte';
+  import { ToastContainer, FlatToast } from 'svelte-toasts';
   import { goto } from '$app/navigation';
   let rol = null;
   let usuario = null;
@@ -89,6 +90,10 @@
     </div>
   </div>
 </footer>
+
+<ToastContainer let:data={data}>
+  <FlatToast {data} />
+</ToastContainer>
 
 <style>
   

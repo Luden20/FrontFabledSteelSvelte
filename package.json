@@ -5,13 +5,15 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+  "build": "svelte-kit build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"format": "prettier --write .",
 		"lint": "prettier --check .",
 		"test:e2e": "playwright test",
-		"test": "npm run test:e2e"
+		"test": "npm run test:e2e",
+  "start": "node build"
+
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.49.1",
@@ -31,6 +33,7 @@
 	},
 	"dependencies": {
 		"flowbite-svelte": "^1.6.1",
+		"serve": "^14.2.4",
 		"svelte-modal": "^0.4.0",
 		"svelte-motion": "^0.12.2",
 		"svelte-toast": "^1.0.0",

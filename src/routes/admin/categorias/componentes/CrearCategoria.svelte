@@ -1,0 +1,43 @@
+<script>
+  import { onMount } from "svelte";
+  import { API } from "$lib/service/apis.service";
+  import { categorias,actualizarCategoriasAdmin } from "$lib/store/categoriaAdminStore"
+  import { createEventDispatcher } from "svelte";
+  import Resultado from "../../../../componentesGenericos/Resultado.svelte";
+  let abierto = false;
+  let resultado = null;
+  import { toast } from "flowbite-svelte";
+	import ToastGenerico from "../../../../componentesGenericos/ToastGenerico.svelte";
+
+  function callback(respuesta, error) {
+    resultado = error ? { mensaje: "Error al enviar los datos." } : respuesta;
+    actualizarCategoriasAdmin();
+  }
+    const handleSubmit = API.FORMCALL("/categoria",'POST',callback,true);
+
+</script>
+
+
+  <form on:submit={handleSubmit}>
+    <label>
+      Nombre
+      <input name="CAT_NOMBRE" type="text" />
+    </label>
+    <label>
+      Descripción
+      <input name="CAT_DECRIPCION" type="text" />
+    </label>
+    <label>
+      Estado
+      <input name="ESTADO" type="text" />
+    </label>
+    {#if !resultado}
+        <button type="submit">ENVIAR</button>
+    {/if}
+  </form>
+
+  {#if resultado}
+  <ToastGenerico
+   mensaje={resultado.mensaje}
+   exito={resultado.exito}/>
+  {/if}

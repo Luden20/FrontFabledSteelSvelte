@@ -4,7 +4,7 @@
   <script src="/scripts/carrito.js"></script>
 </svelte:head>
 <script>
-      import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import { authStore, initAuth } from "$lib/store/authStore";
 
 	import TiendaLista from "./componentes/TiendaLista.svelte";
@@ -13,13 +13,12 @@
     let buscado = "";
     let reloadKey = 0;
     let rol = null;
-      let usuario = null;
+    let usuario = null;
 
-      // Actualiza las variables locales cuando cambie el store
-      authStore.subscribe(($auth) => {
-        rol = $auth.rol;
-        usuario = $auth.usuario;
-      });
+    authStore.subscribe(($auth) => {
+      rol = $auth.rol;
+      usuario = $auth.usuario;
+    });
 
   onMount(() => {
       const script = document.createElement('script');
@@ -68,7 +67,7 @@
 
         
 {#key reloadKey}
-  <TiendaLista {param} {buscado} />
+  <TiendaLista {param} {buscado} productos={[]} />
 {/key}
 
 <Carrito/>

@@ -7,10 +7,14 @@
       import { onMount } from 'svelte';
   import { authStore, initAuth } from "$lib/store/authStore";
 
-	import TiendaLista from "./componentes/TiendaLista.svelte";
-	import Carrito from './componentes/Carrito.svelte';
-    let param = "Nombre";
-    let buscado = "";
+        import TiendaLista from "./componentes/TiendaLista.svelte";
+        import Carrito from './componentes/Carrito.svelte';
+
+      export let data;
+      let { productos = [], param: initialParam = "Nombre", buscado: initialBuscado = "" } = data;
+
+    let param = initialParam;
+    let buscado = initialBuscado;
     let reloadKey = 0;
     let rol = null;
       let usuario = null;
@@ -69,7 +73,7 @@
 
         
 {#key reloadKey}
-  <TiendaLista {param} {buscado} />
+  <TiendaLista {productos} {param} {buscado} />
 {/key}
 
 <Carrito/>

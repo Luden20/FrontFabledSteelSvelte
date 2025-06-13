@@ -10,6 +10,10 @@
   let pageSize = 4;
 
   $: paginatedItems = paginate({ productos, pageSize, currentPage });
+
+  $: if (productos && currentPage > Math.ceil(productos.length / pageSize)) {
+    currentPage = 1;
+  }
 </script>
 
 <ul class="items">

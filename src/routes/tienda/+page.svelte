@@ -21,6 +21,7 @@
         usuario = $auth.usuario;
       });
 
+
   onMount(() => {
       const script = document.createElement('script');
       script.src = '/scripts/carrito.js';

@@ -15,9 +15,10 @@
 {#if mostrar}
   <div class="modal-backdrop custom-backdrop" on:click={cerrar}></div>
 
-  <div class="modal show d-block" tabindex="-1" role="dialog" on:click|stopPropagation>
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+  <div class="modal show d-block modal-wrapper" tabindex="-1" role="dialog" on:click={cerrar}>
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document" on:click|stopPropagation>
       <div class="modal-content">
+
 
         <div class="modal-header bg-light border-bottom">
           <h5 class="modal-title">{titulo}</h5>
@@ -54,6 +55,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.modal-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 1070 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
 }
 
 </style>

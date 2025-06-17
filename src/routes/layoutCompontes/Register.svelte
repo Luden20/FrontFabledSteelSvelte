@@ -1,21 +1,20 @@
-    <script>
-    import ModalGenerico from "../../componentesGenericos/ModalGenerico.svelte";
-    import RegisterForm from "./RegisterForm.svelte";
-    let mostrarModal = false;
-   function abrir() {
-        mostrarModal = true;
-    }
+<script>
+  import ModalGenerico from "../../componentesGenericos/ModalGenerico.svelte";
+  import RegisterForm from "./RegisterForm.svelte";
+  export let mostrar = false; // Se controla desde fuera
 
-    function cerrar() {
-        mostrarModal = false;
-    }
+  function cerrar() {
+    mostrar = false;
+    dispatch("close");
+  }
+
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
 </script>
-<button class="btn-fabled" on:click={abrir}>
-  <i class="bi bi-person-plus me-2"></i> Registrarse
-</button>
+
 <ModalGenerico
-  mostrar={mostrarModal}
+  {mostrar}
   on:close={cerrar}
-  titulo="Registarse"
+  titulo="Registrarse"
   componente={RegisterForm}
 />

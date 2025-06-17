@@ -20,7 +20,8 @@
 
   let rol = null;
   let usuario = null;
-
+  let mostrarRegister = false;
+  let mostrarLogin = false;
 
 
   // Suscripción al store para obtener rol y datos del usuario
@@ -87,8 +88,17 @@
             <i class="bi bi-bag-fill me-2"></i> Tienda
           </a>
         </li>
-        <li class="nav-item"><Login /></li>
-        <li class="nav-item"><Register /></li>
+        <li class="nav-item">
+          <button class="btn-fabled" on:click={() => mostrarLogin = true}>
+            <i class="bi bi-box-arrow-in-right me-2"></i> Logearse
+          </button>
+        </li>
+        
+        <li class="nav-item">
+          <button class="btn-fabled" on:click={() => mostrarRegister = true}>
+            <i class="bi bi-person-plus me-2"></i> Registrarse
+          </button>
+        </li>
 
         <li class="nav-item"><span class="btn-fabled-disabled">DESLOGEADO</span></li>
       {/if}
@@ -96,7 +106,8 @@
   </div>
 </nav>
 
-
+<Register bind:mostrar={mostrarRegister} />
+<Login bind:mostrar={mostrarLogin} on:logeado={() => authService.initSession()} />
 
 <!-- PÁGINAS -->
 <main class="container mt-4 mb-5">

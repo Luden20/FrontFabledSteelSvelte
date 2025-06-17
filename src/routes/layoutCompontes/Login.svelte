@@ -1,19 +1,26 @@
 <script>
-    import ModalGenerico from "../../componentesGenericos/ModalGenerico.svelte";
-    import LoginForm from "./LoginForm.svelte";
-    import { showLoginModal, openLoginModal, closeLoginModal } from "$lib/store/loginModalStore";
+  import ModalGenerico from "../../componentesGenericos/ModalGenerico.svelte";
+  import LoginForm from "./LoginForm.svelte";
+  export let mostrar = false;
 
-    function handleLogin() {
-        closeLoginModal();
-    }
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
+  function cerrar() {
+    mostrar = false;
+    dispatch("close");
+  }
+
+  function handleLogin() {
+    mostrar = false;
+    dispatch("logeado");
+  }
 </script>
-<button class="btn-fabled" on:click={openLoginModal}>
-  <i class="bi bi-box-arrow-in-right me-2"></i> Logearse
-</button>
+
 <ModalGenerico
-  mostrar={$showLoginModal}
-  on:close={closeLoginModal}
+  {mostrar}
+  on:close={cerrar}
+  on:logeado={handleLogin}
   titulo="Logearse"
   componente={LoginForm}
-  on:logeado={handleLogin}
 />

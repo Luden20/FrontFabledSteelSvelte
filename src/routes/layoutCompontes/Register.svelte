@@ -10,7 +10,9 @@
         mostrarModal = false;
     }
 </script>
-<button class="btn-fabled" on:click={abrir}>Registrar</button>
+<button class="btn-fabled" on:click={abrir}>
+  <i class="bi bi-person-plus me-2"></i> Registrarse
+</button>
 <ModalGenerico
   mostrar={mostrarModal}
   on:close={cerrar}

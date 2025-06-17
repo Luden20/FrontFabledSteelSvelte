@@ -7,7 +7,9 @@
         closeLoginModal();
     }
 </script>
-<button class="btn-fabled" on:click={openLoginModal}>Logearse</button>
+<button class="btn-fabled" on:click={openLoginModal}>
+  <i class="bi bi-box-arrow-in-right me-2"></i> Logearse
+</button>
 <ModalGenerico
   mostrar={$showLoginModal}
   on:close={closeLoginModal}

@@ -21,6 +21,8 @@
   let rol = null;
   let usuario = null;
 
+
+
   // Suscripción al store para obtener rol y datos del usuario
   authStore.subscribe(($auth) => {
     rol = $auth.rol;
@@ -46,10 +48,21 @@
     <!-- Menú siempre visible -->
     <ul class="navbar-nav d-flex flex-row align-items-center gap-3 m-0">
       {#if rol === "admin"}
-        <li class="nav-item"><a class="nav-link" href="/admin">Panel</a></li>
-        <li class="nav-item"><span class="nav-link text-danger">ADMIN</span></li>
         <li class="nav-item">
-          <button class="btn btn-sm btn-danger" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+          <a href="/admin" class="btn-fabled">
+            <i class="bi bi-speedometer2 me-2"></i> Panel
+          </a>
+        </li>
+        <li class="nav-item">
+          <span class="btn-fabled-disabled">
+            <i class="bi bi-person-gear me-2"></i> Sitio de Administrador
+          </span>
+        </li>
+        <li class="nav-item">
+          <button class="btn-fabled-outline" on:click={() => authService.cerrarSesion()}>
+            <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+          </button>
+
         </li>
 
       {:else if rol === "cliente" && usuario}
@@ -57,18 +70,26 @@
           <span class="btn-fabled-disabled">Bienvenido {usuario?.CUE_NOMBRE} {usuario?.CUE_APELLIDO}</span>
         </li>
         <li class="nav-item">
-          <a href="/tienda" class="btn-fabled">Tienda</a>
+          <a href="/tienda" class="btn-fabled">
+            <i class="bi bi-bag-fill me-2"></i> Tienda
+          </a>
         </li>
         <li class="nav-item">
-          <button class="btn btn-sm btn-dark" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+          <button class="btn-fabled-outline" on:click={() => authService.cerrarSesion()}>
+            <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+          </button>
+
         </li>
 
       {:else}
         <li class="nav-item">
-          <a href="/tienda" class="btn-fabled">Tienda</a>
+          <a href="/tienda" class="btn-fabled">
+            <i class="bi bi-bag-fill me-2"></i> Tienda
+          </a>
         </li>
         <li class="nav-item"><Login /></li>
         <li class="nav-item"><Register /></li>
+
         <li class="nav-item"><span class="btn-fabled-disabled">DESLOGEADO</span></li>
       {/if}
     </ul>
@@ -109,11 +130,14 @@
     position: sticky;
     top: 0;
     background-color: rgba(255, 255, 255, 0.15) !important;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     -webkit-backdrop-filter: blur(10px);
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     z-index: 1060 !important;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   :global(.navbar .nav-link) {
@@ -228,5 +252,9 @@
     text-decoration: none;
   }
 
-  
+  :global(.nav-link),
+  :global(.btn-fabled),
+  :global(.btn-fabled-outline) {
+    transition: all 0.2s ease-in-out;
+  }
 </style>

@@ -35,46 +35,46 @@
 
 
 <!-- NAVBAR -->
-<nav class="navbar sticky-top bg-white shadow-sm z-3">
-  <div class="container">
-    <!-- Logo para responsive (30px en móvil, 50px en desktop) -->
+<nav class="navbar bg-white shadow-sm z-3">
+  <div class="container d-flex align-items-center justify-content-between">
+    <!-- Logo -->
     <a href="/home" class="navbar-brand">
       <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="d-block d-sm-none" style="height: 30px;">
       <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="d-none d-sm-block" style="height: 50px;">
     </a>
 
-    <!-- Botón hamburguesa para menú colapsable -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- Menú siempre visible -->
+    <ul class="navbar-nav d-flex flex-row align-items-center gap-3 m-0">
+      {#if rol === "admin"}
+        <li class="nav-item"><a class="nav-link" href="/admin">Panel</a></li>
+        <li class="nav-item"><span class="nav-link text-danger">ADMIN</span></li>
+        <li class="nav-item">
+          <button class="btn btn-sm btn-danger" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+        </li>
 
-    <!-- Menú dependiendo del rol del usuario -->
-    {#if rol === "admin"}
-      <!-- Enlaces de administrador -->
-      <li class="nav-item"><a class="nav-link" href="/admin">Panel</a></li>
-      <li class="nav-item"><span class="nav-link text-danger">ADMIN</span></li>
-      <li class="nav-item">
-        <button class="btn btn-sm ms-2 mt-1" style="background-color:#B22222; color:#FFFFFF;" on:click={authService.cerrarSesion()}>Cerrar Sesión</button>
-      </li>
-    {:else if rol === "cliente" && usuario !== null}
-      <!-- Enlaces para clientes logueados -->
-      <li class="nav-item"><span class="nav-link text-success">Bienvenido {usuario?.CUE_NOMBRE} {usuario?.CUE_APELLIDO}</span></li>
-      <li class="nav-item"><a href="/tienda" class="btn btn-sm ms-2 mt-1" style="...">Tienda</a></li>
-      <li class="nav-item"><button class="btn btn-sm ms-2 mt-1" style="...">Cerrar Sesión</button></li>
-    {:else}
-      <!-- Enlaces para no autenticados -->
-      <li class="nav-item"><a href="/tienda" class="btn btn-sm ms-2 mt-1" style="...">Tienda</a></li>
-      <li class="nav-item"><Login /></li>
-      <li class="nav-item"><Register /></li>
-      <li class="nav-item"><span class="nav-link text-muted">DESLOGEADO</span></li>
-    {/if}
+      {:else if rol === "cliente" && usuario}
+        <li class="nav-item">
+          <span class="btn-fabled-disabled">Bienvenido {usuario?.CUE_NOMBRE} {usuario?.CUE_APELLIDO}</span>
+        </li>
+        <li class="nav-item">
+          <a href="/tienda" class="btn-fabled">Tienda</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-sm btn-dark" on:click={() => authService.cerrarSesion()}>Cerrar Sesión</button>
+        </li>
 
-    <!-- Contenedor colapsable -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto"></ul>
-    </div>
+      {:else}
+        <li class="nav-item">
+          <a href="/tienda" class="btn-fabled">Tienda</a>
+        </li>
+        <li class="nav-item"><Login /></li>
+        <li class="nav-item"><Register /></li>
+        <li class="nav-item"><span class="btn-fabled-disabled">DESLOGEADO</span></li>
+      {/if}
+    </ul>
   </div>
 </nav>
+
 
 
 <!-- PÁGINAS -->
@@ -176,5 +176,57 @@
   :global(.social-links a:hover) {
     color: #B22222;
   }
+  
+  :global(.btn-fabled) {
+    background-color: #B22222;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
+    border-radius: 999px; /* bien ovalado */
+    transition: all 0.2s ease-in-out;
+    display: inline-block; /* esto es clave */
+  }
+
+  :global(.btn-fabled:hover) {
+    background-color: #8B1A1A;
+    transform: scale(1.05);
+  }
+
+  :global(.btn-fabled-outline) {
+    border: 2px solid #B22222;
+    background-color: transparent;
+    color: #B22222;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    font-family: 'Lora', serif;
+    border-radius: 999px; /* bien ovalado */
+    transition: all 0.2s ease-in-out;
+  }
+
+  :global(.btn-fabled-outline:hover) {
+    background-color: #B22222;
+    color: white;
+    transform: scale(1.05);
+  }
+
+  :global(.btn-fabled-disabled) {
+    background-color: rgba(178, 34, 34, 0.1);
+    color: #B22222;
+    border: 2px solid #B22222;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
+    border-radius: 999px;
+    cursor: default;
+    opacity: 0.9;
+    user-select: none;
+  }
+
+  :global(a.btn-fabled) {
+    text-decoration: none;
+  }
+
   
 </style>

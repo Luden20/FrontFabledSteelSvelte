@@ -23,4 +23,7 @@
   on:logeado={handleLogin}
   titulo="Logearse"
   componente={LoginForm}
+  tamanio="modal-custom-md"
 />
+
+

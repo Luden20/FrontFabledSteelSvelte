@@ -2,7 +2,7 @@
   import { authService } from "$lib/service/auth.service";
   import { initAuth } from "$lib/store/authStore.js";
   import { createEventDispatcher } from 'svelte';
-  import { toasts } from 'svelte-toasts'; // ✅ IMPORTANTE
+  import { toasts } from 'svelte-toasts';
 
   const dispatch = createEventDispatcher();
   let user = "";
@@ -25,61 +25,98 @@
     e.preventDefault();
     resultado = await authService.login(user, password);
     lanzarToast(resultado.mensaje, resultado.exito); 
-    initAuth();
-    dispatch("logeado");
+    if (resultado.exito) {
+      initAuth();
+      dispatch("logeado");
+    }
   }
 </script>
 
-<main class="login-wrapper">
-    <div class="login-card card border-2 border-danger text-black p-4">
-        <h2 class="text-center text-danger mb-4" style="font-family: 'Cinzel', serif;">Inicio de Sesión</h2>
-        <form on:submit={enviarFormulario}>
-                <label for="usuario" class="form-label">Email</label>
-  <input type="text" class="form-control" id="usuario" name="usuario" required placeholder="Ingrese su email" maxlength="30"bind:value={user} />
+<form class="login-form" on:submit={enviarFormulario}>
+  <h2 class="titulo">Inicio de Sesión</h2>
 
-                <label for="password" class="form-label">Contraseña</label>
-  <input type="password" class="form-control" id="password" name="password" required placeholder="Ingrese su contraseña" maxlength="30"  bind:value={password} />
+  <div class="mb-3">
+    <label for="usuario" class="form-label">Email</label>
+    <input
+      type="text"
+      class="form-control"
+      id="usuario"
+      name="usuario"
+      required
+      placeholder="Ingrese su email"
+      maxlength="30"
+      bind:value={user}
+    />
+  </div>
 
-         <div class="d-flex justify-content-center mt-3">
-             <button type="submit" class="btn btn-danger rounded-pill px-4">Ingresar</button>
-         </div></form>
-    </div>
-    
-</main>
+  <div class="mb-4">
+    <label for="password" class="form-label">Contraseña</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      name="password"
+      required
+      placeholder="Ingrese su contraseña"
+      maxlength="30"
+      bind:value={password}
+    />
+  </div>
 
+  <div class="d-flex justify-content-center">
+    <button type="submit" class="btn-fabled px-4">Ingresar</button>
+  </div>
+</form>
 
+<style>
+  .login-form {
+    padding: 0.5rem;
+    font-family: 'Lora', serif;
+  }
 
-<style>    .form-label {
-        font-family: 'Cinzel', serif;
-        font-weight: bold;
-        color: #B22222;
-    }
+  .titulo {
+    text-align: center;
+    color: #B22222;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
 
-    .form-control {
-        background-color: #fff;
-        color: #000;
-        border: 1px solid #B22222;
-    }
+  .form-label {
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    color: #B22222;
+  }
 
-        .form-control::placeholder {
-            color: #777;
-        }
+  .form-control {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #B22222;
+    border-radius: 0.5rem;
+  }
 
-        .form-control:focus {
-            border-color: #B22222;
-            box-shadow: 0 0 0 0.25rem rgba(178, 34, 34, 0.25);
-        }
+  .form-control::placeholder {
+    color: #777;
+  }
 
-    .btn-danger {
-        background-color: #B22222;
-        border: none;
-        font-family: 'Cinzel', serif;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
+  .form-control:focus {
+    border-color: #B22222;
+    box-shadow: 0 0 0 0.25rem rgba(178, 34, 34, 0.25);
+  }
 
-        .btn-danger:hover {
-            background-color: #7B1E1E;
-            color: white;
-        }
+  .btn-fabled {
+    border: none;
+    background-color: #B22222;
+    color: #fff;
+    border-radius: 999px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .btn-fabled:hover {
+    background-color: #7B1E1E;
+    transform: scale(1.05);
+  }
 </style>

@@ -33,8 +33,6 @@
 </script>
 
 <form class="login-form" on:submit={enviarFormulario}>
-  <h2 class="titulo">Inicio de Sesión</h2>
-
   <div class="mb-3">
     <label for="usuario" class="form-label">Email</label>
     <input

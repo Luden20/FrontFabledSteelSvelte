@@ -1,6 +1,6 @@
 <script>
   import { API } from "$lib/service/apis.service";
-  import { toasts } from "svelte-toasts"; 
+  import { toasts } from "svelte-toasts";
 
   export let estado;
   export let id;
@@ -23,34 +23,57 @@
     const url = `${endpoint}/${id}`;
     await API.DELETE(url, true);
     callback();
-    lanzarToast("Borrado Exitoso", true);
+    lanzarToast("Borrado exitoso", true);
   }
 
   async function desborrar() {
     await API.UNDELETE(endpoint, id, true);
     callback();
-    lanzarToast("Desborrado Exitoso", true);
+    lanzarToast("Desborrado exitoso", true);
   }
 </script>
 
-{#if estado=='ACT'}
-<button on:click={borrar}>Borrar</button>
+{#if estado === 'ACT'}
+  <button class="btn-rojo" on:click={borrar}>Borrar</button>
 {:else}
-<button on:click={desborrar}>Desborrar</button>
+  <button class="btn-verde" on:click={desborrar}>Desborrar</button>
 {/if}
+
 <style>
-      button {
-    background-color: #1f2937; /* gris oscuro */
-    color: white;
+  button {
+    font-size: 0.875rem;
+    font-weight: 600;
     padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.375rem;
+    border-radius: 0.5rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none;
   }
 
-  button:hover {
-    background-color: #374151; /* gris más claro al pasar mouse */
+  .btn-rojo {
+    background-color: #B22222;
   }
 
+  .btn-rojo:hover {
+    background-color: #a11d1d;
+    box-shadow: 0 0 0 2px rgba(178, 34, 34, 0.3);
+    transform: scale(1.05);
+  }
+
+  .btn-verde {
+    background-color: #15803d;
+  }
+
+  .btn-verde:hover {
+    background-color: #166534;
+    box-shadow: 0 0 0 2px rgba(21, 128, 61, 0.3);
+    transform: scale(1.05);
+  }
+
+  button:focus {
+    outline: none;
+    transform: scale(0.98);
+  }
 </style>

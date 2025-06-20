@@ -18,28 +18,17 @@
     {#if cuenta}
       <div class="col-md-6">
         <h4>Cuenta y Cliente</h4>
-        <dl class="row">
-          <dt class="col-sm-4">Nombre de cuenta:</dt>
-          <dd class="col-sm-8">{cuenta.CUE_NOMBRE} {cuenta.CUE_APELLIDO}</dd>
-
-          <dt class="col-sm-4">Email:</dt>
-          <dd class="col-sm-8">{cuenta.CUE_EMAIL}</dd>
-
-          <dt class="col-sm-4">Fecha de nacimiento:</dt>
-          <dd class="col-sm-8">{cuenta.CUE_FECHA_NACIMIENTO}</dd>
-
-          <dt class="col-sm-4">Cliente:</dt>
-          <dd class="col-sm-8">{cuenta.cliente.CLI_NOMBRE} {cuenta.cliente.CLI_APELLIDO}</dd>
-
-          <dt class="col-sm-4">Dirección:</dt>
-          <dd class="col-sm-8">{cuenta.cliente.CLI_DIRECCION}</dd>
-
-          <dt class="col-sm-4">Celular:</dt>
-          <dd class="col-sm-8">{cuenta.cliente.CLI_CELULAR}</dd>
-
-          <dt class="col-sm-4">Cédula:</dt>
-          <dd class="col-sm-8">{cuenta.cliente.CLI_CEDULA}</dd>
-        </dl>
+        <table class="table tabla-factura">
+          <tbody>
+            <tr><th>Nombre de cuenta</th><td>{cuenta.CUE_NOMBRE} {cuenta.CUE_APELLIDO}</td></tr>
+            <tr><th>Email</th><td>{cuenta.CUE_EMAIL}</td></tr>
+            <tr><th>Fecha de nacimiento</th><td>{cuenta.CUE_FECHA_NACIMIENTO}</td></tr>
+            <tr><th>Cliente</th><td>{cuenta.cliente.CLI_NOMBRE} {cuenta.cliente.CLI_APELLIDO}</td></tr>
+            <tr><th>Dirección</th><td>{cuenta.cliente.CLI_DIRECCION}</td></tr>
+            <tr><th>Celular</th><td>{cuenta.cliente.CLI_CELULAR}</td></tr>
+            <tr><th>Cédula</th><td>{cuenta.cliente.CLI_CEDULA}</td></tr>
+          </tbody>
+        </table>
       </div>
     {:else}
       <div class="col-md-6"><h6>Cargando datos del cliente...</h6></div>
@@ -47,25 +36,16 @@
 
     <div class="col-md-6">
       <h4>Factura</h4>
-      <dl class="row">
-        <dt class="col-sm-4">Fecha:</dt>
-        <dd class="col-sm-8">{factura.FAC_FECHA}</dd>
-
-        <dt class="col-sm-4">Subtotal:</dt>
-        <dd class="col-sm-8">{factura.FAC_TOTAL}</dd>
-
-        <dt class="col-sm-4">IVA:</dt>
-        <dd class="col-sm-8">{factura.FAC_IVA}</dd>
-
-        <dt class="col-sm-4">Total con IVA:</dt>
-        <dd class="col-sm-8">{factura.FAC_TOTAL_IVA}</dd>
-
-        <dt class="col-sm-4">Estado Factura:</dt>
-        <dd class="col-sm-8">{factura.FAC_ESTADO}</dd>
-
-        <dt class="col-sm-4">Estado Registro:</dt>
-        <dd class="col-sm-8">{factura.ESTADO}</dd>
-      </dl>
+      <table class="table tabla-factura">
+        <tbody>
+          <tr><th>Fecha</th><td>{factura.FAC_FECHA}</td></tr>
+          <tr><th>Subtotal</th><td>$ {factura.FAC_TOTAL.toFixed(2)}</td></tr>
+          <tr><th>IVA</th><td>$ {factura.FAC_IVA.toFixed(2)}</td></tr>
+          <tr><th>Total con IVA</th><td>$ {factura.FAC_TOTAL_IVA.toFixed(2)}</td></tr>
+          <tr><th>Estado Factura</th><td>{factura.FAC_ESTADO}</td></tr>
+          <tr><th>Estado Registro</th><td>{factura.ESTADO}</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -87,10 +67,14 @@
           <tr>
             <td>{detalle.PRD_NOMBRE}</td>
             <td>{detalle.DTT_CANTIDAD}</td>
-            <td>{detalle.DTF_PRECIO}</td>
-            <td>{(detalle.DTF_PRECIO * 0.15).toFixed(2)}</td>
-            <td>{(detalle.DTF_PRECIO * 1.15).toFixed(2)}</td>
-            <td>{detalle.ESTADO}</td>
+            <td>$ {detalle.DTF_PRECIO.toFixed(2)}</td>
+            <td>$ {(detalle.DTF_PRECIO * 0.15).toFixed(2)}</td>
+            <td>$ {(detalle.DTF_PRECIO * 1.15).toFixed(2)}</td>
+            <td>
+              <span class={`badge-estado ${detalle.ESTADO === 'ACT' ? 'activo' : 'inactivo'}`}>
+                {detalle.ESTADO === 'ACT' ? 'Activo' : 'Anulado'}
+              </span>
+            </td>
           </tr>
         {/each}
       </tbody>
@@ -101,3 +85,78 @@
 {:else}
   <h6>Cargando factura...</h6>
 {/if}
+
+<style>
+  h4, h5 {
+    font-family: 'Cinzel', serif;
+    color: #B22222;
+    margin-top: 1rem;
+  }
+
+  .tabla-factura th {
+    color: #B22222;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    width: 40%;
+    vertical-align: middle;
+    background-color: #f8d7da;
+    text-align: right;
+    padding-right: 1rem;
+  }
+
+  .tabla-factura td {
+    font-family: 'Lora', serif;
+    background-color: #fff;
+    padding-left: 1rem;
+  }
+
+  .tabla-factura {
+    border: 1px solid #B22222;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+
+  .factura-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    font-family: 'Lora', serif;
+  }
+
+  .factura-table thead {
+    background-color: #B22222;
+    color: white;
+  }
+
+  .factura-table th,
+  .factura-table td {
+    border: 1px solid #B22222;
+    padding: 0.75rem;
+    text-align: center;
+  }
+
+  .factura-table tr:hover {
+    background-color: #fceaea;
+  }
+
+  .badge-estado {
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    display: inline-block;
+  }
+
+  .activo {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+
+  .inactivo {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+</style>

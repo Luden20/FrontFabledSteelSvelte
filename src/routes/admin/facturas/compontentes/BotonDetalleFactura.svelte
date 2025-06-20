@@ -1,37 +1,52 @@
 <script>
-        import ModalGenerico from "../../../../componentesGenericos/ModalGenerico.svelte";
-    import DetalleFactura from "./DetalleFactura.svelte";
-    export let id;
-    let mostrarModal = false;
-   function abrir() {
-        mostrarModal = true;
-    }
+  import ModalGenerico from "../../../../componentesGenericos/ModalGenerico.svelte";
+  import DetalleFactura from "./DetalleFactura.svelte";
+  export let id;
 
-    function cerrar() {
-        mostrarModal = false;
-    }
+  let mostrarModal = false;
+
+  function abrir() {
+    mostrarModal = true;
+  }
+
+  function cerrar() {
+    mostrarModal = false;
+  }
 </script>
-<button on:click={abrir}>Ver Detalle</button>
+
+<button class="btn-facha" on:click={abrir}>
+  Ver Detalle
+</button>
+
 <ModalGenerico
   mostrar={mostrarModal}
   on:close={cerrar}
-  titulo="Detalle"
+  titulo="Detalle de Factura"
   componente={DetalleFactura}
-  props={{ id: id }}
+  props={{ id }}
 />
+
 <style>
-      button {
-    background-color: #1f2937; /* gris oscuro */
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.375rem;
+  .btn-facha {
+    background-color: white;
+    color: black;
+    border: 2px solid #B22222;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  button:hover {
-    background-color: #374151; /* gris más claro al pasar mouse */
+  .btn-facha:hover {
+    transform: scale(1.05);
+    border-color: #a11d1d;
+    box-shadow: 0 2px 8px rgba(178, 34, 34, 0.2);
   }
 
+  .btn-facha:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(178, 34, 34, 0.4);
+  }
 </style>

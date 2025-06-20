@@ -138,8 +138,6 @@
 
 <style>
   :global(.navbar) {
-    position: sticky;
-    top: 0;
     background-color: rgba(255, 255, 255, 0.15) !important;
     backdrop-filter: blur(12px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -150,6 +148,7 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
+
 
   :global(.navbar .nav-link) {
     color: rgb(22, 3, 3) !important;

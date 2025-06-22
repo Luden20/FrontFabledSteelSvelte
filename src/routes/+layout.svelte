@@ -38,16 +38,21 @@
 
 
 <!-- NAVBAR -->
-<nav class="navbar bg-white shadow-sm z-3">
+<nav class="navbar shadow-sm z-3">
   <div class="container d-flex align-items-center justify-content-between">
-    <!-- Logo -->
-    <a href="/home" class="navbar-brand">
-      <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="d-block d-sm-none" style="height: 30px;">
-      <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="d-none d-sm-block" style="height: 50px;">
+    <!-- Logo clickeable que va al HOME real -->
+    <a href="/" class="navbar-brand d-flex align-items-center">
+      <img src="https://i.imgur.com/eOwWwYW.png" alt="Logo FabledSteel" class="d-block" style="height: 50px;">
     </a>
 
-    <!-- Menú siempre visible -->
+    <!-- Menú visible -->
     <ul class="navbar-nav d-flex flex-row align-items-center gap-3 m-0">
+      <li class="nav-item">
+        <a href="/" class="btn-fabled">
+          <i class="bi bi-house-fill me-2"></i> Home
+        </a>
+      </li>
+
       {#if rol === "admin"}
         <li class="nav-item">
           <a href="/admin" class="btn-fabled">
@@ -63,7 +68,6 @@
           <button class="btn-fabled-outline" on:click={() => authService.cerrarSesion()}>
             <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
           </button>
-
         </li>
 
       {:else if rol === "cliente" && usuario}
@@ -79,7 +83,6 @@
           <button class="btn-fabled-outline" on:click={() => authService.cerrarSesion()}>
             <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
           </button>
-
         </li>
 
       {:else}
@@ -93,18 +96,17 @@
             <i class="bi bi-box-arrow-in-right me-2"></i> Logearse
           </button>
         </li>
-        
         <li class="nav-item">
           <button class="btn-fabled" on:click={() => mostrarRegister = true}>
             <i class="bi bi-person-plus me-2"></i> Registrarse
           </button>
         </li>
-
         <li class="nav-item"><span class="btn-fabled-disabled">DESLOGEADO</span></li>
       {/if}
     </ul>
   </div>
 </nav>
+
 
 <Register bind:mostrar={mostrarRegister} />
 <Login bind:mostrar={mostrarLogin} on:logeado={() => authService.initSession()} />
@@ -118,6 +120,7 @@
 <footer class="footer-glass text-center py-3 text-white mt-auto">
   <div class="container">
     <small>© 2025 FabledSteel. Todos los derechos reservados.</small>
+
     <div class="social-links mt-2">
       <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
         <i class="bi bi-facebook me-2" aria-hidden="true"></i>

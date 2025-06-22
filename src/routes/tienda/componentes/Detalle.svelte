@@ -6,10 +6,13 @@
 
   let item = null;
   let cantidad = 1;
+  let animar = false;
 
   onMount(async () => {
     try {
-      item = await API.GET(`/productos/${id}`,false)
+      item = await API.GET(`/productos/${id}`, false);
+      // Activar animación luego de cargar
+      setTimeout(() => (animar = true), 50);
     } catch (error) {
       console.error("❌ Error:", error);
     }
@@ -17,7 +20,7 @@
 </script>
 
 {#if item}
-  <div class="row g-4">
+  <div class="row g-4 fade-slide-in {animar ? 'activo' : ''}">
     <div class="col-md-6">
       <dl class="row">
         <dt class="col-sm-4">Descripción:</dt>
@@ -32,7 +35,7 @@
         <dt class="col-sm-4">Categorías:</dt>
         <dd class="col-sm-8">
           {#each item.categoria as cat}
-            <span class="badge rounded-pill bg-secondary me-1">{cat.CAT_NOMBRE}</span>
+            <span class="badge rounded-pill bg-fabled me-1">{cat.CAT_NOMBRE}</span>
           {/each}
         </dd>
 
@@ -64,12 +67,12 @@
       </dl>
     </div>
 
-    <div class="col-md-6">
-      <div class="carousel slide" id="carouselExampleControls" data-bs-ride="carousel">
-        <div class="carousel-inner rounded border">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+      <div class="carousel slide w-100" id="carouselExampleControls" data-bs-ride="carousel" style="max-width: 300px;">
+        <div class="carousel-inner rounded border shadow">
           {#each item.imagenes as img, i}
             <div class="carousel-item {i === 0 ? 'active' : ''}">
-              <img src={img.IMG__URL} class="d-block w-100" alt="Imagen producto" />
+              <img src={img.IMG__URL} class="d-block w-100 rounded" alt="Imagen producto" />
             </div>
           {/each}
         </div>
@@ -87,3 +90,90 @@
 {:else}
   <p>Cargando detalle del producto...</p>
 {/if}
+
+<style>
+  .fade-slide-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease-out;
+  }
+
+  .fade-slide-in.activo {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  dl.row dt {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    color: #B22222;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  dl.row dd {
+    font-family: 'Lora', serif;
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  select.form-select {
+    border-radius: 999px;
+    border: 2px solid #B22222;
+    font-family: 'Lora', serif;
+  }
+
+  .btn-primary {
+    background-color: #B22222;
+    border: none;
+    font-weight: 600;
+    font-family: 'Cinzel', serif;
+    padding: 0.5rem 1.5rem;
+    border-radius: 999px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-primary:hover {
+    background-color: #8B0000;
+    transform: scale(1.05);
+  }
+
+  .carousel-inner img {
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 1rem;
+    border: 3px solid #B22222;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-outline-secondary {
+    font-family: 'Cinzel', serif;
+    border-radius: 999px;
+    border: 2px solid #B22222;
+    color: #B22222;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-outline-secondary:hover {
+    background-color: #B22222;
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .badge.bg-fabled {
+    background-color: #B22222;
+    color: white;
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  p {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #666;
+  }
+</style>

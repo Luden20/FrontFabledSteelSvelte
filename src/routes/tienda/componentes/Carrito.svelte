@@ -58,7 +58,6 @@
 
 <style>
   .modal-content {
-    
     background-color: #fff;
     border: 2px solid #B22222;
     font-family: 'Lora', serif;
@@ -66,14 +65,14 @@
   }
 
   .modal-dialog.modal-xl {
-    max-width: 90vw;
-      margin-top: 60px !important; /* Ajusta según el alto de tu navbar */
-
+    max-width: 45vw;
+    margin-top: 60px !important; /* Ajusta según el alto de tu navbar */
   }
 
-  .modal-backdrop.show {
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(2px);
+  :global(.modal-backdrop.show) {
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(2px) !important;
+    opacity: 1 !important;
   }
 
   .btn-close-white {
@@ -91,3 +90,4 @@
     color: #000;
   }
 </style>
+

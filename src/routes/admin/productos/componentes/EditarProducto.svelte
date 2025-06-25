@@ -170,6 +170,7 @@
 				id="nueva_imagen_url"
 				class="form-control me-2"
 				placeholder="URL de imagen"
+				maxlength="400"
 			/>
 			<button type="button" class="btn-fabled-outline" on:click={agregarIMG()}>Agregar</button>
 		</div>

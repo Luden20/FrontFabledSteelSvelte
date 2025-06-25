@@ -8,12 +8,12 @@ function prepararCarrito() {
     document.getElementById("carritoJson").value = JSON.stringify(carrito);
     return true;
 }
-function agregar(id, nombre, descripcion, precio, imagen, autor,stock,cantidad) {
-if (typeof precio === 'string') {
-    precio = parseFloat(precio.replace(",", "."));
-} else {
-    precio = parseFloat(precio);
-}
+function agregar(id, nombre, descripcion, precio, imagen, autor, stock, cantidad) {
+    if (typeof precio === 'string') {
+        precio = parseFloat(precio.replace(",", "."));
+    } else {
+        precio = parseFloat(precio);
+    }
 
     let existe = false;
 
@@ -39,7 +39,7 @@ if (typeof precio === 'string') {
             PRD_DESCRIPCION: descripcion,
             PRD_PRECIO: precio,
             PRD_AUTOR: autor,
-            PRD_STOCK:stock,
+            PRD_STOCK: stock,
             imagen: {
                 IMG__URL: imagen
             }
@@ -110,7 +110,7 @@ function agregar_boton_modal(id) {
     for (let i = 0; i < carrito.length; i++) {
         if (carrito[i].producto.PRD_ID_PK == id) {
             if (carrito[i].cantidad + 1 > carrito[i].producto.PRD_STOCK) {
-                alert("demas")
+                alert("No hay suficiente stock")
                 return;
             }
             carrito[i].cantidad = carrito[i].cantidad + 1;

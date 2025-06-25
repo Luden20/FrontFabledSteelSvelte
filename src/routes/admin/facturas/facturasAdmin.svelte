@@ -1,87 +1,104 @@
 <script>
-  import { facturas, actualizarFacturasAdmin } from "$lib/store/facturaAdminStore";
-  import { Table } from "flowbite-svelte";
-  import BuscadorGenerico from "../../../componentesGenericos/BuscadorGenerico.svelte";
-  import { onMount } from "svelte";
-  import ItemFacturas from "./compontentes/ItemFacturas.svelte";
-
-  let params = [
-    { llave: "cedula", valor: "Cédula" },
-    { llave: "Nfactura", valor: "# de Factura" }
-  ];
-
-  onMount(actualizarFacturasAdmin);
+	import { facturas, actualizarFacturasAdmin } from '$lib/store/facturaAdminStore';
+	import { Table } from 'flowbite-svelte';
+	import BuscadorGenerico from '../../../componentesGenericos/BuscadorGenerico.svelte';
+	import { onMount } from 'svelte';
+	import ItemFacturas from './compontentes/ItemFacturas.svelte';
+	import { paginate, LightPaginationNav } from 'svelte-paginate';
+	import { pageSize, actualizarPageSize } from '$lib/store/pageSizeStore';
+	import DropdownPageSize from '../../../componentesGenericos/DropdownPageSize.svelte';
+	let params = [
+		{ llave: 'cedula', valor: 'Cédula' },
+		{ llave: 'Nfactura', valor: '# de Factura' }
+	];
+	let currentPage = 1;
+	$: paginatedItems =
+		$facturas && Array.isArray($facturas)
+			? paginate({ items: $facturas, pageSize: $pageSize, currentPage })
+			: [];
+	onMount(actualizarFacturasAdmin);
 </script>
 
 <!-- Contenedor principal -->
-<div class="max-w-7xl mx-auto px-4 mt-8 space-y-6">
-  <!-- Buscador -->
-  <BuscadorGenerico
-    params={params}
-    callback={actualizarFacturasAdmin}
-  />
+<div class="mx-auto mt-8 max-w-7xl space-y-6 px-4">
+	<DropdownPageSize />
 
-  <!-- Tabla -->
-  <div class="bg-white border border-gray-300 rounded-2xl shadow-xl overflow-auto animate-fade-in">
-    <Table class="w-full text-sm text-gray-800 table-auto min-w-[950px]">
-      <thead class="bg-[#B22222] text-white uppercase tracking-wide">
-        <tr>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">Numero</th>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">Cédula</th>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">Nombre</th>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">Fecha</th>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">Subtotal</th>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">IVA</th>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">Total</th>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">Estado</th>
-          <th class="px-6 py-3 border-r border-[#a71d1d]">Edición</th>
-          <th class="px-6 py-3">Detalle</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#if $facturas.length > 0}
-          {#each $facturas as factura}
-            <ItemFacturas factura={factura} />
-          {/each}
-        {:else}
-          <tr>
-            <td colspan="10" class="text-center py-6 text-gray-500 italic">
-              No hay facturas registradas
-            </td>
-          </tr>
-        {/if}
-      </tbody>
-    </Table>
-  </div>
+	<!-- Buscador -->
+	<BuscadorGenerico {params} callback={actualizarFacturasAdmin} />
+
+	<!-- Tabla -->
+	<div class="animate-fade-in overflow-auto rounded-2xl border border-gray-300 bg-white shadow-xl">
+		<Table class="w-full min-w-[950px] table-auto text-sm text-gray-800">
+			<thead class="bg-[#B22222] tracking-wide text-white uppercase">
+				<tr>
+					<th class="border-r border-[#a71d1d] px-6 py-3">Num.</th>
+					<th class="border-r border-[#a71d1d] px-6 py-3">Cédula</th>
+					<th class="border-r border-[#a71d1d] px-6 py-3">Nombre</th>
+					<th class="border-r border-[#a71d1d] px-6 py-3">Fecha</th>
+					<th class="border-r border-[#a71d1d] px-6 py-3">Subtotal</th>
+					<th class="border-r border-[#a71d1d] px-6 py-3">IVA</th>
+					<th class="border-r border-[#a71d1d] px-6 py-3">Total</th>
+					<th class="border-r border-[#a71d1d] px-6 py-3">Estado</th>
+					<th class="border-r border-[#a71d1d] px-6 py-3">Edición</th>
+					<th class="px-6 py-3">Detalle</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#if $facturas.length > 0}
+					{#each paginatedItems as factura}
+						<ItemFacturas {factura} />
+					{/each}
+				{:else}
+					<tr>
+						<td colspan="10" class="py-6 text-center text-gray-500 italic">
+							No hay facturas registradas
+						</td>
+					</tr>
+				{/if}
+			</tbody>
+		</Table>
+	</div>
 </div>
+{#if $facturas && $facturas.length > $pageSize}
+	<div class="d-flex justify-content-center mt-4">
+		<LightPaginationNav
+			totalItems={$facturas?.length || 0}
+			pageSize={$pageSize}
+			{currentPage}
+			limit={1}
+			showStepOptions={true}
+			on:setPage={(e) => (currentPage = e.detail.page)}
+		/>
+	</div>
+{/if}
 
 <style>
-  .animate-fade-in {
-    animation: fade-in 0.4s ease-in-out;
-  }
+	.animate-fade-in {
+		animation: fade-in 0.4s ease-in-out;
+	}
 
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 
-  /* Responsive scroll si se pasa el ancho */
-  .overflow-auto::-webkit-scrollbar {
-    height: 8px;
-  }
+	/* Responsive scroll si se pasa el ancho */
+	.overflow-auto::-webkit-scrollbar {
+		height: 8px;
+	}
 
-  .overflow-auto::-webkit-scrollbar-thumb {
-    background-color: #B22222;
-    border-radius: 4px;
-  }
+	.overflow-auto::-webkit-scrollbar-thumb {
+		background-color: #b22222;
+		border-radius: 4px;
+	}
 
-  .overflow-auto::-webkit-scrollbar-track {
-    background-color: #eee;
-  }
+	.overflow-auto::-webkit-scrollbar-track {
+		background-color: #eee;
+	}
 </style>

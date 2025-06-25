@@ -1,14 +1,13 @@
 import { URLS } from './apis.service.js';
-export const FacturaService={
-    async obtenerCuenta(cedula){
+export const FacturaService = {
+  async obtenerCuenta(cedula) {
     const res = await fetch(`${URLS.PUBLIC_API_URL}/factura/cuentas/${cedula}`);
-    let aux=await res.json();
-    if(aux.message=="Cliente no encontrado")
-    {
-        return null;
+    let aux = await res.json();
+    if (aux.message == "Cliente no encontrado") {
+      return { error: "Cliente no encontrado" };
     }
     return aux;
-    },
+  },
   async Facturar(idCliente, carrito, cuenta) {
     const payload = {
       carritoList: carrito,

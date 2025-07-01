@@ -204,7 +204,7 @@
 	}
 
 	:global(body) {
-		background-image: url('/img/fondoWinterfell.jpg');
+		background-image: url('https://r4.wallpaperflare.com/wallpaper/368/795/804/arya-stark-game-of-thrones-winterfell-coats-horse-hd-wallpaper-bfb656c9a6dd0f0f6129939cef275568.jpg');
 		background-size: cover;
 		background-position: center;
 		background-attachment: fixed;

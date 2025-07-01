@@ -204,7 +204,7 @@
 	}
 
 	:global(body) {
-		background-image: url('https://i.imgur.com/G2ouTo5.jpeg');
+		background-image: url('/img/fondoWinterfell.jpg');
 		background-size: cover;
 		background-position: center;
 		background-attachment: fixed;

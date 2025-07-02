@@ -17,6 +17,8 @@
 	}
 
 	const handleSubmit = authService.register(callback);
+	const patternCedula = '[0-9]{10}';
+	const patterNumero = '[0-9]{(7, 15)}';
 </script>
 
 <form on:submit={handleSubmit} class="registro-form needs-validation">
@@ -67,7 +69,7 @@
 				id="CLI_CEDULA"
 				name="CLI_CEDULA"
 				maxlength="10"
-				pattern="[0-9]{'10'}"
+				pattern={patternCedula}
 				required
 				placeholder="Ingrese su cédula"
 				on:input={soloNumeros}
@@ -82,7 +84,7 @@
 				id="CLI_CELULAR"
 				name="CLI_CELULAR"
 				maxlength="10"
-				pattern="[0-9]{(7, 15)}"
+				pattern={patterNumero}
 				required
 				placeholder="Ingrese su celular"
 				on:input={soloNumeros}

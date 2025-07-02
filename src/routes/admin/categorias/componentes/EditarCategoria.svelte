@@ -48,7 +48,7 @@
 			/>
 		</div>
 
-		{#if !resultado || resultado.exito != 'Exito'}
+		{#if !resultado || !resultado.exito}
 			<div class="d-flex justify-content-center mt-4">
 				<input type="submit" value="Guardar Cambios" class="btn-fabled px-5" />
 			</div>

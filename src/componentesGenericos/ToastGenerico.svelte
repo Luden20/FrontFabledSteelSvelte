@@ -1,15 +1,17 @@
 <script>
-        import { onMount } from 'svelte';
-        import { toasts } from 'svelte-toasts';
-    export let mensaje;
-    export let exito;
+	import { onMount } from 'svelte';
+	import { toasts } from 'svelte-toasts';
+	export let mensaje;
+	export let exito;
 	const showToast = () => {
+		const esExito = exito === true || exito === 'Exito' || exito === 'true';
+
 		toasts.add({
-			title: exito?'Exito':'Error',
+			title: esExito ? 'Éxito' : 'Error',
 			description: mensaje,
 			duration: 3000,
 			placement: 'bottom-right',
-			type: exito ? "success" : "info",
+			type: esExito ? 'success' : 'info',
 			theme: 'dark',
 			showProgress: true
 		});
@@ -19,4 +21,3 @@
 		showToast();
 	});
 </script>
-

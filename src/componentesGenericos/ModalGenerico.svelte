@@ -35,6 +35,7 @@
 							this={componente}
 							{...props}
 							on:success={(e) => dispatch('success', e.detail)}
+							on:logeado={(e) => dispatch('logeado', e.detail)}
 						/>
 					{/if}
 				</div>

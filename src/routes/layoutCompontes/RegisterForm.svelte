@@ -100,6 +100,7 @@
 				id="CUE_EMAIL"
 				name="CUE_EMAIL"
 				maxlength="30"
+				pattern="^[^@]+@[^@]+\.[^@]+$"
 				required
 				placeholder="Ingrese su correo"
 			/>

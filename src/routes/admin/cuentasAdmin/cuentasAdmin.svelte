@@ -18,6 +18,14 @@
 		$cuentas && Array.isArray($cuentas)
 			? paginate({ items: $cuentas, pageSize: $pageSize, currentPage })
 			: [];
+	$: {
+		if ($cuentas && $cuentas.length > 0) {
+			const totalPages = Math.ceil($cuentas.length / $pageSize);
+			if (currentPage > totalPages) {
+				currentPage = totalPages; // O vuelve a 1 si prefieres
+			}
+		}
+	}
 </script>
 
 <!-- Contenedor principal -->

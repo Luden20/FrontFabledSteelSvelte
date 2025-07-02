@@ -31,7 +31,11 @@
 
 				<div class="modal-body">
 					{#if componente}
-						<svelte:component this={componente} {...props} />
+						<svelte:component
+							this={componente}
+							{...props}
+							on:success={(e) => dispatch('success', e.detail)}
+						/>
 					{/if}
 				</div>
 

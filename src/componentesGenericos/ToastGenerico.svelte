@@ -1,9 +1,9 @@
 <script>
-	import { onMount } from 'svelte';
 	import { toasts } from 'svelte-toasts';
 	export let mensaje;
 	export let exito;
-	const showToast = () => {
+
+	$: if (mensaje && exito !== undefined) {
 		const esExito = exito === true || exito === 'Exito' || exito === 'true';
 
 		toasts.add({
@@ -15,9 +15,5 @@
 			theme: 'dark',
 			showProgress: true
 		});
-	};
-
-	onMount(() => {
-		showToast();
-	});
+	}
 </script>

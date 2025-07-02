@@ -1,23 +1,19 @@
 <script>
 	import { toasts } from 'svelte-toasts';
-	import { tick } from 'svelte';
 	export let mensaje;
 	export let exito;
 
-	let trigger = 0;
-
-	$: trigger, showToast(); // se ejecuta cada vez que trigger cambie
-
-	// Fuerza reinicio si se pasa el mismo mensaje/exito
+	// Cada vez que mensaje o exito cambien, se dispara showToast.
 	$: if (mensaje || exito !== undefined) {
-		trigger += 1;
+		showToast();
 	}
 
 	function showToast() {
 		const esExito = exito === true || exito === 'Exito' || exito === 'true';
+		// Agrega un sufijo único (timestamp) para forzar la unicidad del mensaje
 		toasts.add({
 			title: esExito ? 'Éxito' : 'Error',
-			description: mensaje,
+			description: `${mensaje} - ${Date.now()}`,
 			duration: 3000,
 			placement: 'bottom-right',
 			type: esExito ? 'success' : 'info',

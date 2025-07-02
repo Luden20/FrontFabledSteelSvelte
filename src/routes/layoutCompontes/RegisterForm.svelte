@@ -67,7 +67,7 @@
 				id="CLI_CEDULA"
 				name="CLI_CEDULA"
 				maxlength="10"
-				pattern="[0-9]{10}"
+				pattern="[0-9]{'10'}"
 				required
 				placeholder="Ingrese su cédula"
 				on:input={soloNumeros}

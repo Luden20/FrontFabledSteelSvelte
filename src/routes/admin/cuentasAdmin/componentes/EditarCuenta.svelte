@@ -91,16 +91,7 @@
 					value={cuenta.CUE_APELLIDO}
 				/>
 			</div>
-			<div class="col-md-6 mb-3">
-				<label for="CUE_FECHA_NACIMIENTO" class="form-label">Fecha de Nacimiento</label>
-				<input
-					class="form-control"
-					id="CUE_FECHA_NACIMIENTO"
-					name="CUE_FECHA_NACIMIENTO"
-					type="date"
-					value={toDateOnly(cuenta.CUE_FECHA_NACIMIENTO)}
-				/>
-			</div>
+
 			<div class="col-md-6 mb-3">
 				<label for="CUE_FECHA_CREACION" class="form-label">Fecha de Creación</label>
 				<input
@@ -118,6 +109,7 @@
 					id="CUE_EMAIL"
 					name="CUE_EMAIL"
 					type="email"
+					pattern="^[^@]+@[^@]+\.[^@]+$"
 					value={cuenta.CUE_EMAIL}
 				/>
 			</div>
@@ -166,6 +158,16 @@
 					name="CLI_APELLIDO"
 					type="text"
 					value={cuenta.cliente?.CLI_APELLIDO}
+				/>
+			</div>
+			<div class="col-md-6 mb-3">
+				<label for="CUE_FECHA_NACIMIENTO" class="form-label">Fecha de Nacimiento</label>
+				<input
+					class="form-control"
+					id="CUE_FECHA_NACIMIENTO"
+					name="CUE_FECHA_NACIMIENTO"
+					type="date"
+					value={toDateOnly(cuenta.cliente?.CUE_FECHA_NACIMIENTO)}
 				/>
 			</div>
 			<div class="col-md-6 mb-3">

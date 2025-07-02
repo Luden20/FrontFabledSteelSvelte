@@ -1,5 +1,6 @@
 <script>
 	import ModalGenerico from './ModalGenerico.svelte';
+	import { toasts } from 'svelte-toasts';
 
 	export let componente;
 	export let textoBoton;
@@ -16,8 +17,21 @@
 		mostrarModal = false;
 	}
 
-	function handleSuccess() {
+	function handleSuccess(event) {
 		mostrarModal = false;
+		const detalle = event?.detail || {};
+		const mensaje = detalle.mensaje || 'Operación exitosa';
+		setTimeout(() => {
+			toasts.add({
+				title: 'Éxito',
+				description: mensaje,
+				duration: 3000,
+				placement: 'bottom-right',
+				type: 'success',
+				theme: 'dark',
+				showProgress: true
+			});
+		}, 0);
 	}
 </script>
 

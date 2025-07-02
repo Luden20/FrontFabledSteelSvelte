@@ -35,7 +35,7 @@
 		on:submit={handleSubmit}
 		class="registro-form needs-validation"
 		style="max-width: 500px; width: 100%;"
-		novalidate
+		
 	>
 		<input type="hidden" name="CAT_ID_PK" value={categoria.CAT_ID_PK} />
 		<input type="hidden" name="ESTADO" value={categoria.ESTADO} />

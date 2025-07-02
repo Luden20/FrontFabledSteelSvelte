@@ -31,7 +31,7 @@
 
 <div class="container mt-3">
 	<div class="col-md-6 mx-auto">
-		<form on:submit={handleSubmit} class="registro-form needs-validation" novalidate>
+		<form on:submit={handleSubmit} class="registro-form needs-validation">
 			<div class="mb-3">
 				<label for="CAT_NOMBRE" class="form-label">Nombre</label>
 				<input class="form-control" id="CAT_NOMBRE" name="CAT_NOMBRE" type="text" required />

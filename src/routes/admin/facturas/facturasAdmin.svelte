@@ -16,6 +16,15 @@
 		$facturas && Array.isArray($facturas)
 			? paginate({ items: $facturas, pageSize: $pageSize, currentPage })
 			: [];
+	$: {
+		if ($facturas && $facturas.length > 0) {
+			const totalPages = Math.ceil($facturas.length / $pageSize);
+			if (currentPage > totalPages) {
+				currentPage = totalPages || 1;
+			}
+		}
+	}
+
 	onMount(actualizarFacturasAdmin);
 </script>
 
@@ -26,7 +35,7 @@
 
 		<BuscadorGenerico {params} callback={actualizarFacturasAdmin} />
 	</div>
-	
+
 	<!-- Tabla -->
 	<div class="animate-fade-in overflow-auto rounded-2xl border border-gray-300 bg-white shadow-xl">
 		<Table class="w-full min-w-[950px] table-auto text-sm text-gray-800">

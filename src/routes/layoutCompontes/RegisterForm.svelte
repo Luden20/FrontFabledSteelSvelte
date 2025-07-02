@@ -19,6 +19,7 @@
 	const handleSubmit = authService.register(callback);
 	const patternCedula = '[0-9]{10}';
 	const patterNumero = '[0-9]{(7, 15)}';
+	const patternCodigo = '[0-9]{(4, 5)}';
 </script>
 
 <form on:submit={handleSubmit} class="registro-form needs-validation">
@@ -138,7 +139,7 @@
 				id="CLI_CODIGO_POSTAL"
 				name="CLI_CODIGO_POSTAL"
 				maxlength="5"
-				pattern="[0-9]{(4, 5)}"
+				pattern={patternCodigo}
 				required
 				placeholder="Ingrese su código postal"
 			/>

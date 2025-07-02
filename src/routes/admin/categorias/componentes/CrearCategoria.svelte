@@ -34,7 +34,7 @@
 
 			<div class="mb-3">
 				<label for="ESTADO" class="form-label">Estado</label>
-				<input class="form-control" id="ESTADO" name="ESTADO" type="text" required />
+				<input class="form-control" id="ESTADO" name="ESTADO" type="text" value="ACT" readonly />
 			</div>
 
 			{#if !resultado || resultado.exito != 'Exito'}

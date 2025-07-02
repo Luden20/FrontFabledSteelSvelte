@@ -188,7 +188,7 @@
 	<input type="hidden" name="imagenesJson" id="imagenesJson" />
 	<input type="hidden" name="categoriasJson" id="categoriasJson" />
 
-	{#if !resultado}
+	{#if !resultado || resultado.exito != 'Exito'}
 		<div class="mt-4 text-center">
 			<input type="submit" value="Crear Producto" class="btn-fabled px-5" />
 		</div>

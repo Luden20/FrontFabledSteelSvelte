@@ -269,7 +269,7 @@
 		<input type="hidden" name="imagenesEliminadasJson" id="imagenesEliminadasJson" value="[]" />
 
 		<div class="d-flex justify-content-center">
-			{#if !resultado}
+			{#if !resultado || resultado.exito != 'Exito'}
 				<input type="submit" value="Guardar Cambios" class="btn-fabled px-5" />
 			{/if}
 		</div>

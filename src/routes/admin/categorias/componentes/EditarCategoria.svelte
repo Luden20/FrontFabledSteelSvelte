@@ -1,7 +1,10 @@
 <script>
 	import { API } from '$lib/service/apis.service';
 	import { actualizarCategoriasAdmin } from '$lib/store/categoriaAdminStore';
-	import ToastGenerico from '../../../../componentesGenericos/ToastGenerico.svelte';
+	import { toasts } from 'svelte-toasts';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	export let categoria;
 	let resultado = null;
@@ -9,6 +12,18 @@
 	function callback(respuesta, error) {
 		resultado = error ? { mensaje: 'Error al enviar los datos.', exito: false } : respuesta;
 		actualizarCategoriasAdmin();
+		toasts.add({
+			title: resultado.exito ? 'Éxito' : 'Error',
+			description: resultado.mensaje,
+			duration: 3000,
+			placement: 'bottom-right',
+			type: resultado.exito ? 'success' : 'info',
+			theme: 'dark',
+			showProgress: true
+		});
+		if (resultado.exito) {
+			dispatch('success');
+		}
 	}
 
 	const handleSubmit = API.FORMCALL('/categoria', 'PUT', callback, true);
@@ -55,10 +70,6 @@
 		{/if}
 	</form>
 </div>
-
-{#if resultado}
-	<ToastGenerico mensaje={resultado.mensaje} exito={resultado.exito} />
-{/if}
 
 <style>
 	.registro-form {

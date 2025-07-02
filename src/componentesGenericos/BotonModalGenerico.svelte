@@ -15,13 +15,24 @@
 	function cerrar() {
 		mostrarModal = false;
 	}
+
+	function handleSuccess() {
+		mostrarModal = false;
+	}
 </script>
 
 <button class="btn-facha" on:click={abrir}>
 	{textoBoton}
 </button>
 
-<ModalGenerico mostrar={mostrarModal} on:close={cerrar} {titulo} {componente} {props} />
+<ModalGenerico
+	mostrar={mostrarModal}
+	on:close={cerrar}
+	on:success={handleSuccess}
+	{titulo}
+	{componente}
+	{props}
+/>
 
 <style>
 	.btn-facha {

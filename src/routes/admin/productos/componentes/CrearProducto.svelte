@@ -3,7 +3,10 @@
 	import { API } from '$lib/service/apis.service';
 	import { productos, actualizarProductosAdmin } from '$lib/store/productosStore';
 	import { onMount } from 'svelte';
-	import ToastGenerico from '../../../../componentesGenericos/ToastGenerico.svelte';
+	import { toasts } from 'svelte-toasts';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	let categorias = [];
 	let resultado = null;
@@ -19,8 +22,20 @@
 		}
 	}
 	function callback(respuesta, error) {
-		resultado = error ? { mensaje: 'Error al enviar los datos.' } : respuesta;
+		resultado = error ? { mensaje: 'Error al enviar los datos.', exito: false } : respuesta;
 		actualizarProductosAdmin();
+		toasts.add({
+			title: resultado.exito ? 'Éxito' : 'Error',
+			description: resultado.mensaje,
+			duration: 3000,
+			placement: 'bottom-right',
+			type: resultado.exito ? 'success' : 'info',
+			theme: 'dark',
+			showProgress: true
+		});
+		if (resultado.exito) {
+			dispatch('success');
+		}
 	}
 
 	function transformarProducto(data) {
@@ -194,10 +209,6 @@
 		</div>
 	{/if}
 </form>
-
-{#if resultado}
-	<ToastGenerico mensaje={resultado.mensaje} exito={resultado.exito} />
-{/if}
 
 <style>
 	.registro-form {

@@ -12,18 +12,18 @@
 		{ llave: 'Nfactura', valor: '# de Factura' }
 	];
 	let currentPage = 1;
-	$: paginatedItems =
-		$facturas && Array.isArray($facturas)
-			? paginate({ items: $facturas, pageSize: $pageSize, currentPage })
-			: [];
 	$: {
-		if ($facturas && $facturas.length > 0) {
+		if ($facturas && Array.isArray($facturas)) {
 			const totalPages = Math.ceil($facturas.length / $pageSize);
 			if (currentPage > totalPages) {
 				currentPage = totalPages || 1;
 			}
 		}
 	}
+	$: paginatedItems =
+		$facturas && Array.isArray($facturas)
+			? paginate({ items: $facturas, pageSize: $pageSize, currentPage })
+			: [];
 
 	onMount(actualizarFacturasAdmin);
 </script>

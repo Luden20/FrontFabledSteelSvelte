@@ -11,18 +11,19 @@
 	onMount(actualizarCategoriasAdmin);
 
 	let currentPage = 1;
+	$: {
+		if ($categorias && Array.isArray($categorias)) {
+			const totalPages = Math.ceil($categorias.length / $pageSize);
+			if (currentPage > totalPages) {
+				currentPage = totalPages || 1;
+			}
+		}
+	}
+
 	$: paginatedItems =
 		$categorias && Array.isArray($categorias)
 			? paginate({ items: $categorias, pageSize: $pageSize, currentPage })
 			: [];
-	$: {
-		if ($categorias && $categorias.length > 0) {
-			const totalPages = Math.ceil($categorias.length / $pageSize);
-			if (currentPage > totalPages) {
-				currentPage = totalPages || 1; // Regresa a la última página válida o a la primera si no hay nada
-			}
-		}
-	}
 </script>
 
 <!-- Contenedor principal -->

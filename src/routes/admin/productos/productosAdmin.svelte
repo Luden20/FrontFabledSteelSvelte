@@ -16,18 +16,18 @@
 	onMount(actualizarProductosAdmin);
 
 	let currentPage = 1;
-	$: paginatedItems =
-		$productos && Array.isArray($productos)
-			? paginate({ items: $productos, pageSize: $pageSize, currentPage })
-			: [];
 	$: {
-		if ($productos && $productos.length > 0) {
+		if ($productos && Array.isArray($productos)) {
 			const totalPages = Math.ceil($productos.length / $pageSize);
 			if (currentPage > totalPages) {
 				currentPage = totalPages || 1;
 			}
 		}
 	}
+	$: paginatedItems =
+		$productos && Array.isArray($productos)
+			? paginate({ items: $productos, pageSize: $pageSize, currentPage })
+			: [];
 </script>
 
 <!-- Contenedor principal -->

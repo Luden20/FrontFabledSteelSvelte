@@ -28,11 +28,25 @@
 	} else if (param || buscado) {
 		cargarProductos();
 	}
+	$: {
+		const totalPages = Math.ceil(productos.length / $pageSize);
+		if (currentPage > totalPages) {
+			currentPage = totalPages || 1;
+		}
+	}
 
 	$: paginatedItems =
 		productos && Array.isArray(productos)
 			? paginate({ items: productos, pageSize: $pageSize, currentPage })
 			: [];
+	$: {
+		if (productos && productos.length > 0) {
+			const totalPages = Math.ceil(productos.length / $pageSize);
+			if (currentPage > totalPages) {
+				currentPage = totalPages || 1;
+			}
+		}
+	}
 </script>
 
 {#if productos === null}

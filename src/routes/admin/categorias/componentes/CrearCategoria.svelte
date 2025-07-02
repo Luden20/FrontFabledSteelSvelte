@@ -37,7 +37,7 @@
 				<input class="form-control" id="ESTADO" name="ESTADO" type="text" value="ACT" readonly />
 			</div>
 
-			{#if !resultado || resultado.exito != 'Exito'}
+			{#if !resultado || !resultado.exito}
 				<div class="d-flex justify-content-center mt-4">
 					<input type="submit" value="Guardar" class="btn-fabled px-5" />
 				</div>

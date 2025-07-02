@@ -1,28 +1,27 @@
 <script>
 	import { pageSize, actualizarPageSize } from '$lib/store/pageSizeStore';
 	let seleccionada = '';
+
 	function actualizar(cantidad) {
 		actualizarPageSize(cantidad);
 		seleccionada = ':' + cantidad;
 	}
 </script>
 
-<div class="relative inline-block text-left">
-	<!-- Botón personalizado -->
+<div class="dropdown">
+	<!-- Botón principal -->
 	<button
-		class="btn-fabled"
+		class="btn-fabled dropdown-toggle"
 		type="button"
 		id="dropdownPageSize"
 		data-bs-toggle="dropdown"
 		aria-expanded="false"
 	>
-		Items por página {seleccionada}
+		<i class="bi bi-list-ol me-2"></i> Items por página {seleccionada}
 	</button>
 
-	<!-- Menú dropdown -->
-	<ul
-		class="dropdown-menu ring-opacity-5 absolute z-10 mt-2 w-40 rounded-md bg-white shadow-lg ring-1 ring-black focus:outline-none"
-	>
+	<!-- Opciones del dropdown -->
+	<ul class="dropdown-menu rounded-5 shadow-sm" aria-labelledby="dropdownPageSize">
 		<li><a href="#" class="dropdown-item" on:click={() => actualizar(5)}>5</a></li>
 		<li><a href="#" class="dropdown-item" on:click={() => actualizar(10)}>10</a></li>
 		<li><a href="#" class="dropdown-item" on:click={() => actualizar(15)}>15</a></li>
@@ -32,44 +31,41 @@
 
 <style>
 	.btn-fabled {
-		padding: 0.5rem 1rem;
+		padding: 0.5rem 1.2rem;
 		background-color: #b22222;
 		color: white;
 		border: none;
-		border-radius: 0.5rem;
+		border-radius: 999px !important;
+		font-family: 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
 		font-weight: 600;
-		font-size: 0.875rem;
+		font-size: 1rem;
 		cursor: pointer;
-		transition: all 0.25s ease;
+		transition: all 0.2s ease-in-out;
 	}
 
 	.btn-fabled:hover {
-		background-color: #a11d1d;
+		background-color: #8b1a1a;
 		transform: scale(1.05);
 		box-shadow: 0 2px 6px rgba(178, 34, 34, 0.3);
 	}
 
-	.btn-fabled:focus {
-		outline: none;
-		transform: scale(0.98);
-	}
-
 	.dropdown-menu {
-		background-color: white;
-		border-radius: 0.5rem;
+		border-radius: 1rem;
+		min-width: 8rem;
 		overflow: hidden;
 	}
 
 	.dropdown-item {
 		display: block;
 		padding: 0.5rem 1rem;
+		font-size: 0.95rem;
 		color: #333;
-		font-size: 0.875rem;
-		text-decoration: none;
-		transition: background-color 0.2s ease;
+		font-family: 'Lora', serif;
+		transition: background-color 0.2s ease, color 0.2s ease;
 	}
 
 	.dropdown-item:hover {
-		background-color: #f5f5f5;
+		background-color: #f8d7da;
+		color: #b22222;
 	}
 </style>

@@ -32,7 +32,7 @@
 		<BotonModalGenerico
 			componente={CrearProducto}
 			titulo={'Crear Producto'}
-			textoBoton={'Crear Producto'}
+			textoBoton={'Crear'}
 			tipo={'Titulo'}
 		/>
 	</div>

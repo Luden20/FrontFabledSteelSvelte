@@ -21,11 +21,12 @@
 
 <!-- Contenedor principal -->
 <div class="mx-auto mt-8 max-w-7xl space-y-6 px-4">
-	<DropdownPageSize />
+	<div class="flex items-center justify-between">
+		<DropdownPageSize />
 
-	<!-- Buscador -->
-	<BuscadorGenerico {params} callback={actualizarFacturasAdmin} />
-
+		<BuscadorGenerico {params} callback={actualizarFacturasAdmin} />
+	</div>
+	
 	<!-- Tabla -->
 	<div class="animate-fade-in overflow-auto rounded-2xl border border-gray-300 bg-white shadow-xl">
 		<Table class="w-full min-w-[950px] table-auto text-sm text-gray-800">

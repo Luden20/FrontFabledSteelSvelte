@@ -55,16 +55,14 @@
 	</div>
 
 	<div class="row justify-content-center mb-4">
-		<div class="col-12">
-			<!-- Filtros en una sola fila -->
-			<div class="d-flex align-items-end flex-wrap gap-3">
+	<div class="col-12">
+		<!-- Filtros -->
+		<div class="d-flex flex-wrap gap-3 align-items-end justify-content-between filtros-fila">
+			<!-- Filtros alineados a la izquierda -->
+			<div class="d-flex flex-wrap gap-3 flex-grow-1">
 				<!-- Selector de filtro -->
-				<div class="flex-grow-1" style="min-width: 180px;">
-					<label
-						for="filtro"
-						class="form-label fw-bold"
-						style="color: #B22222; font-family: 'Cinzel', serif;">Filtrar por</label
-					>
+				<div style="min-width: 180px;">
+					<label for="filtro" class="form-label filtro-label">Filtrar por</label>
 					<select id="filtro" bind:value={param} class="form-select">
 						<option value="Nombre">Nombre</option>
 						<option value="Autor">Autor</option>
@@ -72,12 +70,8 @@
 				</div>
 
 				<!-- Campo de búsqueda -->
-				<div class="flex-grow-1" style="min-width: 200px;">
-					<label
-						for="busqueda"
-						class="form-label fw-bold"
-						style="color: #B22222; font-family: 'Cinzel', serif;">Buscar</label
-					>
+				<div style="min-width: 200px;">
+					<label for="busqueda" class="form-label filtro-label">Buscar</label>
 					<input
 						id="busqueda"
 						bind:value={buscado}
@@ -88,30 +82,30 @@
 				</div>
 
 				<!-- Categoría -->
-				<div class="flex-grow-1" style="min-width: 200px;">
-					<Categoria callback={buscarPorCategoria} />
-				</div>
+<div style="min-width: 200px;">
+	<label class="form-label filtro-label">Categoría</label>
+	<Categoria callback={buscarPorCategoria} />
+</div>
+			</div>
 
-				<!-- Botón Ver Todo -->
-				<div style="min-width: 130px;">
-					<button
-						class="btn btn-outline-danger mt-4 w-100"
-						on:click={() => {
-							param = 'Nombre';
-							buscado = '';
-							categoria = -1;
-							reloadKey += 1;
-						}}
-					>
-						Ver Todo
-					</button>
-				</div>
-				<div class="flex-grow-1" style="min-width: 200px;">
-					<DropdownPageSize />
-				</div>
+			<!-- Botones alineados a la derecha -->
+			<div class="d-flex gap-3" style="min-width: 350px;">
+				<button
+					class="btn btn-outline-danger w-100"
+					on:click={() => {
+						param = 'Nombre';
+						buscado = '';
+						categoria = -1;
+						reloadKey += 1;
+					}}>
+					Limpiar Filtros
+				</button>
+				<DropdownPageSize />
 			</div>
 		</div>
 	</div>
+</div>
+
 
 	<section class="pb-5">
 		{#key reloadKey}
@@ -185,4 +179,15 @@
 			transform: translateY(0);
 		}
 	}
+
+.filtro-label {
+	color: #B22222;
+	font-family: 'Cinzel', serif;
+	font-weight: bold;
+	margin-bottom: 0.25rem;
+}
+
+.filtros-fila {
+	row-gap: 1rem;
+}
 </style>

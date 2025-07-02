@@ -21,10 +21,10 @@
 	/>
 </svelte:head>
 <!-- Carrito flotante -->
-<div class="position-fixed end-0 bottom-0 p-3" style="z-index: 1050;">
+<div class="position-fixed end-0 bottom-0 pe-4 pb-4" style="z-index: 1050;">
 	<button
 		type="button"
-		class="btn btn-primary position-relative"
+		class="btn btn-fabled position-relative"
 		data-bs-toggle="modal"
 		data-bs-target="#carrito_vista_previa"
 		style="transform: scale(1.3);"
@@ -115,4 +115,21 @@
 		font-family: 'Cinzel', serif;
 		color: #000;
 	}
+
+	.btn-fabled {
+	background-color: #B22222;
+	color: white;
+	border-radius: 999px;
+	font-family: 'Cinzel', serif;
+	font-weight: bold;
+	border: none;
+	transition: all 0.2s ease-in-out;
+	padding: 0.6rem 1.2rem;
+}
+
+.btn-fabled:hover {
+	background-color: #8B1A1A;
+	transform: scale(1.1);
+	box-shadow: 0 0 10px rgba(178, 34, 34, 0.5);
+}
 </style>

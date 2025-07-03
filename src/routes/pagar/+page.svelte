@@ -61,7 +61,7 @@
 						<hr class="border-warning my-3" />
 
 						<div class="text-warning text-end">
-							<p>Subtotal: ${pTotal}</p>
+							<p>Subtotal: ${pTotal.toFixed(2)}</p>
 							<p>IVA (15%): ${IVA.toFixed(2)}</p>
 							<h5>Total: ${pTotalIVA.toFixed(2)}</h5>
 						</div>

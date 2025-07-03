@@ -59,9 +59,11 @@
 			class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"
 		>
 			{#each paginatedItems as producto}
-				<div class="col">
-					<TiendaItem item={producto} />
-				</div>
+				{#if producto.PRD_STOCK > 0}
+					<div class="col">
+						<TiendaItem item={producto} />
+					</div>
+				{/if}
 			{/each}
 		</div>
 	</div>
